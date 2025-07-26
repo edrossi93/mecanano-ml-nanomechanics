@@ -34,9 +34,7 @@ jupyter lab
 
 You can also run the tutorial directly in your browser using Binder:
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/USERNAME/mecanano-ml-nanomechanics-tutorial/HEAD)
-
-*(Replace USERNAME with your actual GitHub username once published)*
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/edrossi93/mecanano-ml-nanomechanics-tutorial/HEAD)
 
 ## Contact
 
