@@ -15,6 +15,4 @@ dependencies:
   - pip
   - pip:
       - opencv-python
-      - notebook
-      - gaf-features
       - ultralytics
