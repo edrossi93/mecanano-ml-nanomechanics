@@ -21,13 +21,13 @@ __pycache__/
 
 # ========== Dataset e Output ========== #
 # commenta la riga se vuoi committare questi file esplicitamente
-data/
-*.csv
-*.zip
-*.tar.gz
-*.hdf5
-*.npy
-*.npz
+# data/
+# *.csv
+# *.zip
+# *.tar.gz
+# *.hdf5
+# *.npy
+# *.npz
 
 # ========== YOLO training output ========== #
 runs/
