@@ -1,0 +1,13 @@
+MecaNano ML Nanomechanics Tutorial License
+
+Copyright (c) 2025 Edoardo Rossi
+
+All code in this repository is licensed to Edoardo Rossi.
+All rights reserved. This repository is provided solely for the educational purposes of the "MecaNano Summer School 2025 – Tutorial on Machine Learning for Nanomechanics" held in Kassel. Reproduction or distribution of the code outside the scope of this tutorial is prohibited until 29/07/2025 unless explicit authorization is granted by Edoardo Rossi. After this date, reproduction remains subject to Edoardo Rossi's authorization and appropriate citation.
+
+The nanoindentation data contained in this repository is proprietary and originates from an article published under a Creative Commons Attribution 4.0 International License. When using this dataset, cite the source:
+
+Besharatloo, H., Wheeler, J.M. Influence of indentation size and spacing on statistical phase analysis via high-speed nanoindentation mapping of metal alloys. Journal of Materials Research 36, 2198–2212 (2021). https://doi.org/10.1557/s43578-021-00214-5
+
+This article is licensed under a Creative Commons Attribution 4.0 International License, which permits use, sharing, adaptation, distribution, and reproduction in any medium or format, provided appropriate credit is given to the original author(s) and the source, a link to the license is provided, and changes are indicated. Third‑party material included in the article may be subject to different licensing terms.
+
