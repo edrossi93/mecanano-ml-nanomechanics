@@ -16,3 +16,4 @@ dependencies:
       - keras==2.15.0
       - opencv-python
       - ultralytics
+      - torchvision
