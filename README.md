@@ -100,7 +100,6 @@ mecanano-ml-nanomechanics/
 ├── .github/workflows/    # CI: executes every notebook on push/PR
 ├── requirements.txt      # pip install -r requirements.txt
 ├── environment.yml       # conda env create -f environment.yml
-├── CLAUDE.md             # repo conventions & contribution rules
 ├── RUN_REPORT.md         # latest full run: status, results, runtimes
 └── README.md
 ```
