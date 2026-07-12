@@ -56,11 +56,10 @@ Open the notebooks roughly in this order — each builds on the last.
 - **[[From notebook to your own data]]** — plug your own maps/curves into the helpers.
 - **[[Going further]]** — the optional/advanced notebooks and references.
 
-## Ground rules (for contributors)
+## Contributing
 
-- **Only public data.** No proprietary / collaborator data; never any private file paths.
-- **Beginner-first**, always: define terms, say what the reader should see, add a recap.
-- Everything must **run on CPU** in a couple of minutes per notebook.
+Keep it **beginner-first** (define terms, say what the reader should see, add a recap),
+**open** (only openly-licensed data), and **CPU-only** (a couple of minutes per notebook).
 
 Data licence: the high-speed maps are **CC BY 4.0** — please cite *Besharatloo &
 Wheeler, J. Mater. Res. 36, 2198–2212 (2021)*. See **[[Datasets]]** for details.

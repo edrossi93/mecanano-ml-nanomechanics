@@ -51,9 +51,9 @@ GitHub and reinforce the "what you should see" notes. Re-run a notebook before
 committing so its outputs match its code. Keep figures modest in size.
 
 ## Data rules (hard constraints)
-- **Only the public data in `data/`.** No proprietary or collaborator data of any
-  kind — in particular **never any meteorite / EBSD dataset**. If you want to add a
-  dataset, confirm it is cleared for public release first.
+- **Only openly-licensed data in `data/`.** Never commit data you don't have the
+  right to redistribute; before adding a dataset, confirm it is cleared for public
+  release and record its licence in `data/README.md`.
 - The high-speed maps are **CC BY 4.0** — cite *Besharatloo & Wheeler, J. Mater.
   Res. 36, 2198–2212 (2021)*. See `data/README.md`.
 - **No private file paths** (e.g. local `C:\…` / `E:\…` folders) in any committed

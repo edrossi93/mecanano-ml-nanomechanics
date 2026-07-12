@@ -14,7 +14,7 @@
 - [ ] Every changed notebook **runs top-to-bottom on CPU** (Kernel → Restart & Run All).
 - [ ] It stays **beginner-friendly**: terms defined on first use, "what you should
       see" notes, a recap, and comments on non-obvious code lines.
-- [ ] **Only public data** in `data/` is used — no proprietary/collaborator data.
+- [ ] **Only openly-licensed data** in `data/` is used (cleared for public release).
 - [ ] No private file paths (`C:\…`, `E:\…`) are committed.
 - [ ] The latent-space notebook (05) stays a **plain autoencoder**.
 - [ ] CI (notebook execution) passes.

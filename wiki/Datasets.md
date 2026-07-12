@@ -1,7 +1,7 @@
 # The datasets
 
-Everything the tutorial uses is **non-proprietary** and ships inside the repo's
-`data/` folder — no downloads, no logins. Load it all through one helper:
+Everything the tutorial uses is **openly licensed and free to share**, and ships inside
+the repo's `data/` folder — no downloads, no logins. Load it all through one helper:
 `import mecanano_ml as mm`.
 
 ![Overview of the tutorial datasets](images/datasets_overview.png)
@@ -84,9 +84,4 @@ The classic handwritten-digit set (LeCun et al.), used **only** for the CNN warm
 
 ---
 
-## What is **not** here (on purpose)
-No meteorite / EBSD data, no unpublished collaborator samples. The correlative
-registration notebook (06) teaches the mechanics↔microstructure method on the
-**public** `H` and `E` channels instead — same method, shareable data.
-
-See `data/README.md` in the repo for the authoritative provenance and licences.
+See `data/README.md` in the repo for the full provenance and licences.

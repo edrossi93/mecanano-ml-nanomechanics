@@ -73,7 +73,7 @@ run and what each one should produce.
 
 ## Data
 
-All datasets are **non-proprietary** and shipped as open, human-readable **CSV**
+All datasets are **openly licensed** and shipped as open, human-readable **CSV**
 (see [`data/README.md`](data/README.md)):
 - the **CC BY 4.0** Al–Cu / duplex-steel HSNM maps (Besharatloo & Wheeler, 2021) and MNIST;
 - the author's own (CC BY 4.0) raw load–depth curves, AFM-collocated grid, and the
@@ -89,7 +89,7 @@ is taught on these.
 mecanano-ml-nanomechanics/
 ├── notebooks/            # the tutorials (00–06, 01a/02a/03a/04a, 10–13)
 ├── src/mecanano_ml/      # shared loaders, features and plotting helpers
-├── data/                 # non-proprietary datasets (+ provenance)
+├── data/                 # openly-licensed datasets (+ provenance)
 ├── wiki/                 # source for the GitHub Wiki (setup, glossary, FAQ)
 ├── .github/workflows/    # CI: executes every notebook on push/PR
 ├── requirements.txt      # pip install -r requirements.txt

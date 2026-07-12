@@ -38,5 +38,4 @@ git commit -m "Update tutorial wiki"
 git push
 ```
 
-> Keep the same rules as the repo: **no private paths, no proprietary data** in any
-> wiki page.
+> Keep the same rules as the repo: no local file paths, and only openly-licensed content.

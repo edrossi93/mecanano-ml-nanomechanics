@@ -1,8 +1,8 @@
 # Datasets
 
-All data here is **non-proprietary** and safe to redistribute, and ships as open,
+All data here is **openly licensed** and safe to redistribute, and ships as open,
 human-readable **CSV** (plus a couple of `.npz`/`.xlsx`/ubyte files for the depth
-curves and MNIST). No meteorite / collaborator EBSD / unpublished data is included.
+curves and MNIST).
 
 **Licensing at a glance** (see each section):
 - The **author's own** measurements (curves, AFM grid, the CrN-on-Cr bilayer and
