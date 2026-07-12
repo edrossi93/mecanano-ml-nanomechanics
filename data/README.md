@@ -5,8 +5,9 @@ human-readable **CSV** (plus a couple of `.npz`/`.xlsx`/ubyte files for the dept
 curves and MNIST). No meteorite / collaborator EBSD / unpublished data is included.
 
 **Licensing at a glance** (see each section):
-- The **author's own** measurements (curves, AFM grid, the CrN-on-Cr bilayer, the
-  AlCu 4D map) are released **CC BY 4.0** — free to use *with citation*.
+- The **author's own** measurements (curves, AFM grid, the CrN-on-Cr bilayer and
+  the Al–Cu high-speed nanoindentation maps) are released **CC BY 4.0** — free to
+  use *with citation*.
 - The **third-party** Al–Cu / duplex HSNM maps are **CC BY 4.0** (Besharatloo &
   Wheeler, 2021) — keep their attribution.
 - The **synthetic** data is pure simulation (CC0 — no rights reserved).
@@ -34,13 +35,14 @@ Author's own measurements, shared for teaching.
 Load it with `mecanano_ml.load_afm_grid()`. An openable scalar-only CSV mirror is
 provided as `afm_grid_scalars.csv`.
 
-## `nanoindent_4d/` — depth-resolved (4D) coating & map data
-Long-format CSVs (`indent, x_um, y_um, depth_nm, H_GPa, E_GPa`) with the full
-hardness/modulus-vs-depth for each indent — the input for the coating/substrate
-deconvolution (notebook 07). Author's own measurements (**CC BY 4.0**).
-- `crn_cr_bilayer.csv` — a **CrN-on-Cr bilayer** high-speed map (~486 indents).
-- `alcu_eutectic_4d.csv` — a depth-resolved **Al–Cu eutectic** map (~120 indents).
-Load either with `mecanano_ml.load_4d("crn_cr_bilayer")`.
+## `hsnm_maps/` — high-speed nanoindentation maps (depth-resolved)
+High-speed nanoindentation maps that keep the full hardness/modulus-vs-depth
+response at every point, as long-format CSVs (`indent, x_um, y_um, depth_nm,
+H_GPa, E_GPa`) — the input for the coating/substrate deconvolution (notebook 07).
+Author's own measurements (**CC BY 4.0**).
+- `crn_cr_bilayer.csv` — a **CrN-on-Cr bilayer** map (~1160 indents).
+- `alcu_eutectic.csv` — an **Al–Cu eutectic** map (~120 indents).
+Load either with `mecanano_ml.load_hsnm_map("crn_cr_bilayer")`.
 
 ## `synthetic/` — simulated data for method validation
 `bilayer_synthetic.csv` — film-on-substrate hardness/modulus curves generated from a

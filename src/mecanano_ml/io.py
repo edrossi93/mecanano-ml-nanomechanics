@@ -67,18 +67,19 @@ def load_afm_grid() -> dict:
     z = np.load(os.path.join(DATA, "afm_grid.npz"))
     return {k: z[k] for k in z.files}
 
-def load_4d(name: str = "crn_cr_bilayer") -> dict:
-    """Depth-resolved (4D) coating/bilayer map, e.g. CrN on Cr.
+def load_hsnm_map(name: str = "crn_cr_bilayer") -> dict:
+    """High-speed nanoindentation map that keeps the full depth-resolved response
+    at every point (e.g. a CrN-on-Cr coating).
 
-    Reads ``data/nanoindent_4d/<name>.csv`` (a plain, openable long-format table
-    with columns ``indent, x_um, y_um, depth_nm, H_GPa, E_GPa``) and returns a
-    dict of numpy arrays:
+    Reads ``data/hsnm_maps/<name>.csv`` (a plain, openable long-format table with
+    columns ``indent, x_um, y_um, depth_nm, H_GPa, E_GPa``) and returns a dict of
+    numpy arrays:
       ``X, Y``      per-indent position (um)
       ``depth_nm``  the common depth axis (nm)
       ``H, E``      arrays of shape (n_indents, n_depth): hardness / modulus vs
                     depth (GPa). Missing depth points are left as NaN.
     """
-    path = os.path.join(DATA, "nanoindent_4d", name + ".csv")
+    path = os.path.join(DATA, "hsnm_maps", name + ".csv")
     df = pd.read_csv(path)
     depth = np.sort(df["depth_nm"].unique())
     H = df.pivot_table("H_GPa", "indent", "depth_nm").reindex(columns=depth)

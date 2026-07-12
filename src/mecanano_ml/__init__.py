@@ -5,9 +5,9 @@ reshaping and consistent plotting live here so each notebook shows only
 the steps that matter for the method being taught.
 """
 from .io import (DATA, load_map, map_to_grid, list_maps,
-                 load_afm_grid, load_curves, load_4d)
+                 load_afm_grid, load_curves, load_hsnm_map)
 from .features import curve_scalar_features, standardize
 from .viz import set_style, plot_map, scatter_xy
 __all__ = ["DATA","load_map","map_to_grid","list_maps","load_afm_grid",
-           "load_curves","load_4d","curve_scalar_features","standardize",
+           "load_curves","load_hsnm_map","curve_scalar_features","standardize",
            "set_style","plot_map","scatter_xy"]

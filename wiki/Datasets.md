@@ -41,14 +41,14 @@ curves = mm.load_curves(6)       # list of (depth_nm, load_mN) pairs
 ```
 *Author's own measurements, shared for teaching (CC BY 4.0).*
 
-## Depth-resolved (4D) coating & map data — `data/nanoindent_4d/`
-Open long-format CSVs (`indent, x_um, y_um, depth_nm, H_GPa, E_GPa`) holding the full
-hardness/modulus-vs-depth for each indent — the input to the **coating/substrate
-deconvolution** in notebook 07. Author's own measurements (CC BY 4.0).
+## High-speed nanoindentation maps (depth-resolved) — `data/hsnm_maps/`
+High-speed nanoindentation maps that keep the full hardness/modulus-vs-depth response at
+every point, as open long-format CSVs (`indent, x_um, y_um, depth_nm, H_GPa, E_GPa`) — the
+input to the **coating/substrate deconvolution** in notebook 07. Author's own measurements (CC BY 4.0).
 
 ```python
-d = mm.load_4d("crn_cr_bilayer")   # CrN-on-Cr bilayer coating (~486 indents)
-d = mm.load_4d("alcu_eutectic_4d") # depth-resolved Al–Cu map (~120 indents)
+d = mm.load_hsnm_map("crn_cr_bilayer")   # CrN-on-Cr bilayer coating (~1160 indents)
+d = mm.load_hsnm_map("alcu_eutectic")    # Al–Cu eutectic map (~120 indents)
 # -> dict with depth_nm, H, E (n_indents × n_depth), X, Y
 ```
 
