@@ -5,8 +5,8 @@ the repo's `data/` folder — no downloads, no logins. Load it all through one h
 `import mecanano_ml as mm`.
 
 ![Overview of the tutorial datasets](images/datasets_overview.png)
-*From left: the Al–Cu hardness map, the same area's modulus map, the small AFM grid,
-and a few raw load–depth curves.*
+*From left: the Al–Cu hardness map, the same area's modulus map, the full AFM grid on
+etched silicon (the regular array of exposed 5 µm cubes), and a few raw load–depth curves.*
 
 ## High-speed nanoindentation maps — single depth (`data/nanoindent_maps/`)
 Al–Cu eutectic and duplex-steel maps (plus a titanium map): **one** hardness `H`,
