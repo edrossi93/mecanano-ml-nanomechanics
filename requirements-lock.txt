@@ -1,0 +1,21 @@
+# Exact dependency versions verified to run every notebook top-to-bottom on CPU
+# (Python 3.11–3.12). Use this if a fresh `pip install -r requirements.txt` ever
+# breaks because a library shipped a breaking change:
+#
+#     pip install -r requirements-lock.txt
+#
+# (requirements.txt stays unpinned on purpose so CI installs the latest releases
+# and flags breaking changes early; this file is the known-good fallback.)
+numpy==2.4.6
+pandas==3.0.3
+scipy==1.18.0
+matplotlib==3.11.0
+scikit-learn==1.9.0
+scikit-image==0.26.0
+umap-learn==0.5.12
+hdbscan==0.8.44
+imbalanced-learn==0.14.2
+shap==0.52.0
+pyts==0.13.0
+torch==2.13.0
+jupyterlab==4.6.1

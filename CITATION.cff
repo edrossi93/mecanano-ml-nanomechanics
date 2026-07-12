@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+title: "MecaNano — Machine Learning for Nanomechanics (Tutorial 1)"
+message: "If you use this repository or its data, please cite it (and the underlying dataset)."
+type: software
+authors:
+  - family-names: Rossi
+    given-names: Edoardo
+    affiliation: "Università degli Studi Roma Tre"
+    email: edoardo.rossi@uniroma3.it
+repository-code: "https://github.com/edrossi93/mecanano-ml-nanomechanics"
+abstract: >-
+  A hands-on, beginner-first tutorial on machine learning for nanoindentation
+  data analysis: runnable notebooks covering features/PCA, clustering, supervised
+  models, model evaluation, CNNs/autoencoders, correlative registration and
+  coating/substrate deconvolution, on public nanoindentation datasets.
+keywords:
+  - nanoindentation
+  - high-speed nanoindentation mapping
+  - machine learning
+  - materials science
+  - thin films and coatings
+references:
+  - type: article
+    title: "Influence of indentation size and spacing on statistical phase analysis via high-speed nanoindentation mapping of metal alloys"
+    authors:
+      - family-names: Besharatloo
+        given-names: Hesam
+      - family-names: Wheeler
+        given-names: Jeffrey M.
+    journal: "Journal of Materials Research"
+    volume: 36
+    start: 2198
+    end: 2212
+    year: 2021
+    doi: 10.1557/s43578-021-00214-5
