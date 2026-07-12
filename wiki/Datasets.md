@@ -45,16 +45,16 @@ Because you have the whole curve at each point, you can view a **map at any dept
 separate coating from substrate (notebook 07). Author's own measurements (CC BY 4.0).
 
 ```python
-d = mm.load_hsnm_map("afm_grid_g")       # AFM-collocated reference grid (~800 indents; fast demo)
-d = mm.load_hsnm_map("crn_cr_bilayer")   # CrN-on-Cr coating with a milled pattern (~1500 indents)
-d = mm.load_hsnm_map("alcu_eutectic")    # Al–Cu eutectic map (~900 indents)
+d = mm.load_hsnm_map("afm_grid_g")       # AFM grid on etched silicon, 5 µm cubes (~6,600 indents)
+d = mm.load_hsnm_map("crn_cr_bilayer")   # CrN-on-Cr coating with a milled pattern (~17,000 indents)
+d = mm.load_hsnm_map("alcu_eutectic")    # Al–Cu eutectic map (~20,000 indents)
 # -> dict with depth_nm, and H, E, load (n_indents × n_depth), X, Y
 afm = mm.load_afm_grid()                 # convenience view of afm_grid_g for the notebooks
 ```
 
 ![AFM grid hardness and modulus](images/ds_afm_grid.png)
-*The AFM reference grid — hardness and modulus at one depth slice. It is small and fast, and
-several notebooks use its depth curves.*
+*The AFM grid on etched silicon: the hardness and modulus maps reveal a regular array of
+exposed **5 µm cubes**. Several notebooks use its depth-resolved curves.*
 
 ![CrN-on-Cr map slice](images/ds_crn.png)
 *The CrN-on-Cr map at a 40 nm depth slice — hardness (left) and modulus (right). The milled

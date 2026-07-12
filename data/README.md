@@ -35,10 +35,13 @@ Author's own measurements, shared for teaching.
 High-speed nanoindentation maps that keep the **full hardness/modulus/load-vs-depth**
 response at every point, as long-format CSVs (`indent, x_um, y_um, depth_nm, H_GPa,
 E_GPa, load_mN`). Author's own measurements (**CC BY 4.0**).
-- `afm_grid_g.csv` — a small **AFM-collocated grid** on a reference standard
-  (~800 indents; the fast demo used by several notebooks).
-- `crn_cr_bilayer.csv` — a **CrN-on-Cr coating** map with a milled pattern (~1500 indents).
-- `alcu_eutectic.csv` — an **Al–Cu eutectic** map (~900 indents).
+- `afm_grid_g.csv` — an **AFM-collocated grid** on an etched-silicon standard whose
+  surface exposes a regular array of **5 µm cubes** (~6,600 indents); used by several notebooks.
+- `crn_cr_bilayer.csv` — a **CrN-on-Cr coating** map with a milled pattern (~17,000 indents).
+- `alcu_eutectic.csv` — an **Al–Cu eutectic** map (~20,000 indents).
+
+All indents are kept (no spatial subsampling), so the maps preserve their true patterns;
+each curve is on a common depth grid.
 
 Load any of them with `mecanano_ml.load_hsnm_map("crn_cr_bilayer")` (returns the
 depth axis and per-indent H/E/load curves). The AFM grid also has a convenience

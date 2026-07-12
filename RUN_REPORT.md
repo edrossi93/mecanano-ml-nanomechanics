@@ -13,7 +13,7 @@ and UMAP wobble slightly run-to-run — treat every number below as "about this"
 
 | Notebook | Status | Key result | Approx. runtime |
 |---|---|---|---|
-| 00_start_here | ✅ pass | loads 40,000-indent Al–Cu single-depth map + 800-indent AFM grid + curves | ~3 s |
+| 00_start_here | ✅ pass | loads 40,000-indent Al–Cu single-depth map + ~6,600-indent AFM grid (etched 5 µm cubes) + curves | ~4 s |
 | 01_features_and_pca | ✅ pass | PCA explains 88%/12% on 3 features; whole-curve PCA + t-SNE/UMAP render | ~20 s |
 | 01a_linear_and_logistic_regression | ✅ pass | linear E–H R² = 0.71; logistic classifier acc ≈ 1.00 | ~4 s |
 | 02_clustering_phases | ✅ pass | silhouette peak **k = 2** (0.61); ARI(k-means, GMM) = 0.86 | ~7 s |
@@ -47,7 +47,7 @@ illustration mode (no `ultralytics`) and is excluded from CI as optional/heavy.
 
 **00 · start_here (~3 s).** The Al–Cu map loads as 40,000 indents with columns including
 `H, E, HE, X, Y`; the hardness/modulus maps show the same two-phase pattern and the
-hardness histogram is clearly bimodal. The AFM grid loads as 800 indents with depth-resolved
+hardness histogram is clearly bimodal. The AFM grid loads as ~6,600 indents with depth-resolved
 curves. Takeaway: the data is two-phase, and one helper (`mm`) loads everything.
 
 **01 · features_and_pca (~20 s).** `H, E, H/E` are strongly correlated (0.66–0.95), so PCA
