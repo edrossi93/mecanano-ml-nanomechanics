@@ -1,4 +1,4 @@
-"""Data loading for the tutorial datasets (all non-proprietary)."""
+"""Data loading for the tutorial datasets (all openly licensed)."""
 from __future__ import annotations
 import glob, os
 import numpy as np
