@@ -1,7 +1,12 @@
 # Machine Learning for Nanomechanics — MecaNano Tutorials
 
+[![CI — execute notebooks](https://github.com/edrossi93/mecanano-ml-nanomechanics/actions/workflows/ci.yml/badge.svg)](https://github.com/edrossi93/mecanano-ml-nanomechanics/actions/workflows/ci.yml)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/edrossi93/mecanano-ml-nanomechanics/HEAD?labpath=notebooks%2F00_start_here.ipynb)
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/edrossi93/mecanano-ml-nanomechanics/blob/main/notebooks/00_start_here.ipynb)
+
+> 🐍 **New to Python or machine learning?** You're exactly who this is for. Start with
+> `notebooks/00_start_here.ipynb`; the [**wiki**](../../wiki) has a setup guide, a plain-English
+> ML glossary, and an FAQ.
 
 Hands-on companion to **Tutorial 1 — Machine learning bases and advanced
 applications for nanoindentation data analysis** (MecaNano WG4). You *read a
@@ -35,19 +40,29 @@ requirements.txt` cell at the top.
 
 Read them in order; each is self-contained.
 
+Read them in order. The **`a` notebooks are extra beginner on-ramps** — take them if you'd
+like a gentler build-up.
+
 | # | Notebook | What you learn |
 |---|----------|----------------|
 | 00 | `00_start_here` | the datasets and how to run everything |
 | 01 | `01_features_and_pca` | curve → features, standardisation, **PCA** (scree, loadings), t-SNE/UMAP |
+| 01a | `01a_linear_and_logistic_regression` | the gentlest models: fit a line (R²), predict a class (decision boundary) |
 | 02 | `02_clustering_phases` | **k-means + silhouette**, **GMM** (uncertainty), **HDBSCAN** → phase map |
-| 03 | `03_supervised_trees_rf_shap` | **decision tree → random forest → boosting**, **SMOTE**, **SHAP** |
+| 02a | `02a_knn_classifier` | classify by **nearest neighbours**; how `k` trades off overfit vs underfit |
+| 03 | `03_supervised_trees_rf_shap` | **decision tree → random forest → boosting**, **SMOTE**, **SHAP**, permutation importance |
+| 03a | `03a_evaluating_models` | **cross-validation**, learning curves, **precision/recall**, **ROC/PR** — trust a model |
 | 04 | `04_curve_as_image_cnn` | **GAF** curve→image + a small **CNN**; shape vs scale |
+| 04a | `04a_1d_cnn_on_curves` | a **1-D CNN** on the raw curve (keeps magnitude) — the other side of the lesson |
 | 05 | `05_autoencoder_latent_space` | **autoencoder**, the **latent space**, anomaly detection |
 | 06 | `06_correlative_registration` | aligning two maps: **NCC**, transform recovery, agreement & confusion |
 | 10 | `10_cnn_mnist` | the classic MNIST **CNN** warm-up (refreshed) |
 | 11 | `11_popin_detection` | a transparent **pop-in** detector, validated on a known signal |
 | 12 | `12_regression_curvefitting` | Kick's-law **curve fitting** + **Random-Forest regression** |
 | 13 | `13_yolo_defect_detection` | object detection in micrographs with **YOLO** (optional) |
+
+Every notebook runs top-to-bottom on CPU; see [`RUN_REPORT.md`](RUN_REPORT.md) for the latest
+run and what each one should produce.
 
 ## Data
 
@@ -60,11 +75,15 @@ unsupervised → supervised → multimodal — is taught on these.
 
 ```
 mecanano-ml-nanomechanics/
-├── notebooks/            # 00–13, the tutorials
+├── notebooks/            # the tutorials (00–06, 01a/02a/03a/04a, 10–13)
 ├── src/mecanano_ml/      # shared loaders, features and plotting helpers
 ├── data/                 # non-proprietary datasets (+ provenance)
+├── wiki/                 # source for the GitHub Wiki (setup, glossary, FAQ)
+├── .github/workflows/    # CI: executes every notebook on push/PR
 ├── requirements.txt      # pip install -r requirements.txt
 ├── environment.yml       # conda env create -f environment.yml
+├── CLAUDE.md             # repo conventions & contribution rules
+├── RUN_REPORT.md         # latest full run: status, results, runtimes
 └── README.md
 ```
 
