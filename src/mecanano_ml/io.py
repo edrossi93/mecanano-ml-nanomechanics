@@ -57,36 +57,53 @@ def map_to_grid(df: pd.DataFrame, value: str = "H"):
     extent = [xs.min(), xs.max(), ys.min(), ys.max()]
     return g, extent
 
-def load_afm_grid() -> dict:
-    """Small AFM-collocated nanoindentation grid (patterned standard).
-
-    Returns a dict of numpy arrays: scalars X, Y, H, E, HE, S2P,
-    phase_angle and depth-resolved H_curve, E_curve, load_mN on the
-    common depth axis ``depth_nm`` (64 points).  ~800 indents — fast.
-    """
-    z = np.load(os.path.join(DATA, "afm_grid.npz"))
-    return {k: z[k] for k in z.files}
-
 def load_hsnm_map(name: str = "crn_cr_bilayer") -> dict:
     """High-speed nanoindentation map that keeps the full depth-resolved response
-    at every point (e.g. a CrN-on-Cr coating).
+    at every point (e.g. a CrN-on-Cr coating, or the AFM-collocated grid).
 
     Reads ``data/hsnm_maps/<name>.csv`` (a plain, openable long-format table with
-    columns ``indent, x_um, y_um, depth_nm, H_GPa, E_GPa``) and returns a dict of
-    numpy arrays:
+    columns ``indent, x_um, y_um, depth_nm, H_GPa, E_GPa`` and, when available,
+    ``load_mN``) and returns a dict of numpy arrays:
       ``X, Y``      per-indent position (um)
       ``depth_nm``  the common depth axis (nm)
       ``H, E``      arrays of shape (n_indents, n_depth): hardness / modulus vs
                     depth (GPa). Missing depth points are left as NaN.
+      ``load``      (n_indents, n_depth) load vs depth (mN), if present.
     """
     path = os.path.join(DATA, "hsnm_maps", name + ".csv")
     df = pd.read_csv(path)
     depth = np.sort(df["depth_nm"].unique())
-    H = df.pivot_table("H_GPa", "indent", "depth_nm").reindex(columns=depth)
-    E = df.pivot_table("E_GPa", "indent", "depth_nm").reindex(columns=depth)
+    def _pivot(col):
+        return df.pivot_table(col, "indent", "depth_nm").reindex(columns=depth).values
     xy = df.groupby("indent")[["x_um", "y_um"]].first()
-    return dict(depth_nm=depth, H=H.values, E=E.values,
-                X=xy["x_um"].values, Y=xy["y_um"].values)
+    out = dict(depth_nm=depth, H=_pivot("H_GPa"), E=_pivot("E_GPa"),
+               X=xy["x_um"].values, Y=xy["y_um"].values)
+    if "load_mN" in df.columns:
+        out["load"] = _pivot("load_mN")
+    return out
+
+def load_afm_grid() -> dict:
+    """AFM-collocated high-speed nanoindentation grid (depth-resolved, fast demo).
+
+    A convenience view of the ``afm_grid_g`` high-speed nanoindentation map using
+    the field names the notebooks expect: per-indent scalars ``X, Y, H, E, HE``
+    (taken at the deepest reliable depth) plus the depth-resolved curves
+    ``H_curve, E_curve, load_mN`` on the common axis ``depth_nm``.
+    """
+    d = load_hsnm_map("afm_grid_g")
+    H, E = d["H"], d["E"]
+
+    def _deepest(a):                       # last finite value along each curve
+        out = np.full(a.shape[0], np.nan, float)
+        for i in range(a.shape[0]):
+            fin = np.where(np.isfinite(a[i]))[0]
+            if fin.size:
+                out[i] = a[i, fin[-1]]
+        return out
+
+    Hs, Es = _deepest(H), _deepest(E)
+    return dict(X=d["X"], Y=d["Y"], H=Hs, E=Es, HE=Hs / Es,
+                depth_nm=d["depth_nm"], H_curve=H, E_curve=E, load_mN=d.get("load"))
 
 def load_curves(n: int | None = None, kind: str = "training"):
     """Load raw load-depth curves as a list of (depth_nm, load_mN) arrays.

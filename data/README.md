@@ -1,8 +1,10 @@
 # Datasets
 
 All data here is **openly licensed** and safe to redistribute, and ships as open,
-human-readable **CSV** (plus a couple of `.npz`/`.xlsx`/ubyte files for the depth
-curves and MNIST).
+human-readable **CSV** (plus `evaluation_data.xlsx` and the MNIST ubyte files).
+
+The maps come in two forms: **single-depth** (one hardness/modulus value per point)
+and **depth-resolved** (the full hardness/modulus-vs-depth response at every point).
 
 **Licensing at a glance** (see each section):
 - The **author's own** measurements (curves, AFM grid, the CrN-on-Cr bilayer and
@@ -13,9 +15,10 @@ curves and MNIST).
 - The **synthetic** data is pure simulation (CC0 — no rights reserved).
 - MNIST keeps its standard terms.
 
-## `nanoindent_maps/` — high-speed nanoindentation property maps
-Al–Cu eutectic and duplex-steel maps (hardness, modulus, H/E per indent) plus a
-titanium map. Regular grids, tens of thousands of indents.
+## `nanoindent_maps/` — high-speed nanoindentation maps (single depth)
+Al–Cu eutectic and duplex-steel maps plus a titanium map, each with **one hardness,
+modulus and H/E per indent** (a single-depth map). Regular grids, tens of thousands of
+indents. Load with `mecanano_ml.load_map(name)`.
 
 **License / attribution — CC BY 4.0.** Please cite:
 > H. Besharatloo & J. M. Wheeler, *Influence of indentation size and spacing on
@@ -28,21 +31,18 @@ Individual indentation curves (`DEPTH`, `LOAD`, stiffness, …) used for the
 deep-learning and pop-in notebooks, plus an `evaluation_data.xlsx` summary.
 Author's own measurements, shared for teaching.
 
-## `afm_grid.npz` — small AFM-collocated grid (fast demo)
-~800 indents from a patterned standard, with per-indent scalars (`H`, `E`, `HE`,
-`S2P`, `phase_angle`) **and** the depth-resolved curves (`H_curve`, `E_curve`,
-`load_mN`) on a common `depth_nm` axis. Author's own measurement (**CC BY 4.0**).
-Load it with `mecanano_ml.load_afm_grid()`. An openable scalar-only CSV mirror is
-provided as `afm_grid_scalars.csv`.
-
 ## `hsnm_maps/` — high-speed nanoindentation maps (depth-resolved)
-High-speed nanoindentation maps that keep the full hardness/modulus-vs-depth
-response at every point, as long-format CSVs (`indent, x_um, y_um, depth_nm,
-H_GPa, E_GPa`) — the input for the coating/substrate deconvolution (notebook 07).
-Author's own measurements (**CC BY 4.0**).
-- `crn_cr_bilayer.csv` — a **CrN-on-Cr bilayer** map (~1160 indents).
-- `alcu_eutectic.csv` — an **Al–Cu eutectic** map (~120 indents).
-Load either with `mecanano_ml.load_hsnm_map("crn_cr_bilayer")`.
+High-speed nanoindentation maps that keep the **full hardness/modulus/load-vs-depth**
+response at every point, as long-format CSVs (`indent, x_um, y_um, depth_nm, H_GPa,
+E_GPa, load_mN`). Author's own measurements (**CC BY 4.0**).
+- `afm_grid_g.csv` — a small **AFM-collocated grid** on a reference standard
+  (~800 indents; the fast demo used by several notebooks).
+- `crn_cr_bilayer.csv` — a **CrN-on-Cr coating** map with a milled pattern (~1500 indents).
+- `alcu_eutectic.csv` — an **Al–Cu eutectic** map (~900 indents).
+
+Load any of them with `mecanano_ml.load_hsnm_map("crn_cr_bilayer")` (returns the
+depth axis and per-indent H/E/load curves). The AFM grid also has a convenience
+loader, `mecanano_ml.load_afm_grid()`, using the field names the notebooks expect.
 
 ## `synthetic/` — simulated data for method validation
 `bilayer_synthetic.csv` — film-on-substrate hardness/modulus curves generated from a
