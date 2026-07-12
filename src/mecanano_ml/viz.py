@@ -1,6 +1,5 @@
 """Consistent, clean plotting for the tutorials (black boxes, big fonts)."""
 from __future__ import annotations
-import numpy as np
 import matplotlib.pyplot as plt
 
 def set_style():
