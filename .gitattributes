@@ -1,0 +1,12 @@
+# Keep CI workflow / shell scripts as LF so bash on the Linux runners never sees
+# a stray carriage return (which would break `run:` steps).
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.sh    text eol=lf
+*.py    text eol=lf
+
+# Binary assets Git must never touch (line-ending conversion would corrupt them).
+*.npz     binary
+*.xlsx    binary
+*.pt      binary
+*-ubyte   binary
