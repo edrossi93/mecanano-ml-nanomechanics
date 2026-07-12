@@ -39,7 +39,23 @@ Individual indentation curves used by the pop-in and curve-fitting notebooks.
 ```python
 curves = mm.load_curves(6)       # list of (depth_nm, load_mN) pairs
 ```
-*Author's own measurements, shared for teaching.*
+*Author's own measurements, shared for teaching (CC BY 4.0).*
+
+## Depth-resolved (4D) coating & map data — `data/nanoindent_4d/`
+Open long-format CSVs (`indent, x_um, y_um, depth_nm, H_GPa, E_GPa`) holding the full
+hardness/modulus-vs-depth for each indent — the input to the **coating/substrate
+deconvolution** in notebook 07. Author's own measurements (CC BY 4.0).
+
+```python
+d = mm.load_4d("crn_cr_bilayer")   # CrN-on-Cr bilayer coating (~486 indents)
+d = mm.load_4d("alcu_eutectic_4d") # depth-resolved Al–Cu map (~120 indents)
+# -> dict with depth_nm, H, E (n_indents × n_depth), X, Y
+```
+
+## Synthetic data — `data/synthetic/`
+`bilayer_synthetic.csv` — simulated film-on-substrate curves with **known** film/substrate
+values (`Hf_true_GPa`, `Hs_true_GPa`), for validating deconvolution against ground truth.
+Pure simulation (CC0).
 
 ## MNIST — `data/MNIST/`
 The classic handwritten-digit set (LeCun et al.), used **only** for the CNN warm-up
