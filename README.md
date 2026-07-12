@@ -3,6 +3,7 @@
 [![CI — execute notebooks](https://github.com/edrossi93/mecanano-ml-nanomechanics/actions/workflows/ci.yml/badge.svg)](https://github.com/edrossi93/mecanano-ml-nanomechanics/actions/workflows/ci.yml)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/edrossi93/mecanano-ml-nanomechanics/HEAD?labpath=notebooks%2F00_start_here.ipynb)
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/edrossi93/mecanano-ml-nanomechanics/blob/main/notebooks/00_start_here.ipynb)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21326997.svg)](https://doi.org/10.5281/zenodo.21326997)
 
 > 🐍 **New to Python or machine learning?** You're exactly who this is for. Start with
 > `notebooks/00_start_here.ipynb`; the [**wiki**](../../wiki) has a setup guide, a plain-English
