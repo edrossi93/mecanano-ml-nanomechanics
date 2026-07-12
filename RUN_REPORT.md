@@ -16,8 +16,8 @@ and UMAP wobble slightly run-to-run — treat every number below as "about this"
 | 00_start_here | ✅ pass | loads 40,000-indent Al–Cu single-depth map + ~6,600-indent AFM grid (etched 5 µm cubes) + curves | ~4 s |
 | 01_features_and_pca | ✅ pass | PCA explains 88%/12% on 3 features; whole-curve PCA + t-SNE/UMAP render | ~20 s |
 | 01a_linear_and_logistic_regression | ✅ pass | linear E–H R² = 0.71; logistic classifier acc ≈ 1.00 | ~4 s |
-| 02_clustering_phases | ✅ pass | silhouette peak **k = 2** (0.61); ARI(k-means, GMM) = 0.86 | ~7 s |
-| 02a_knn_classifier | ✅ pass | best test accuracy at **k = 15**; overfit→sweet-spot→underfit shown | ~5 s |
+| 02_clustering_phases | ✅ pass | all 40k: silhouette peak **k = 2** (0.61); HDBSCAN 2 clusters/~3% noise; ARI(k-means, GMM) = 0.86 | ~9 s |
+| 02a_knn_classifier | ✅ pass | all 40k (28k train): boundaries jagged→smooth; every k ≈ 0.999, k=1 train = 1.0 is the overfit signal | ~4 s |
 | 03_supervised_trees_rf_shap | ✅ pass | tree 0.98, RF/boosting 1.00; SMOTE recall 0.98→0.99; SHAP + permutation | ~13 s |
 | 03a_evaluating_models | ✅ pass | CV acc 0.851 ± 0.010; rare-phase **recall 0.61 vs 0.84 acc**; ROC/PR | ~5 s |
 | 04_curve_as_image_cnn | ✅ pass | CNN(GAF) **0.72** vs PCA+RF **0.90** (by design — GAF drops scale) | ~13 s |
@@ -62,15 +62,18 @@ slope ≈ 7 and R² ≈ 0.71 (a real but imperfect relationship). Logistic regre
 the two phases with a straight decision boundary at ≈ 1.00 training accuracy and produces a
 smooth probability map. Takeaway: the two simplest models — a line, and a linear classifier.
 
-**02 · clustering_phases (~7 s).** The silhouette peaks at **k = 2** (0.61), so the map is
-two-phase; k-means paints two coherent regions, GMM adds a confidence map that darkens at
-boundaries, HDBSCAN finds clusters plus a little noise, and ARI(k-means, GMM) = 0.86 confirms
-the split is robust. Takeaway: "how many phases?" becomes a defensible number.
+**02 · clustering_phases (~9 s).** On all **40,000** indents the silhouette peaks at **k = 2**
+(0.61) — the clustering itself uses every point; only the O(n²) silhouette score samples 10,000.
+k-means paints two coherent regions, GMM adds a confidence map that darkens at boundaries,
+HDBSCAN (also on all 40,000) finds **2 clusters** plus ~3% noise, and ARI(k-means, GMM) = 0.86
+confirms the split is robust. Takeaway: "how many phases?" becomes a defensible number.
 
-**02a · knn_classifier (~5 s).** Decision boundaries for k = 1, 15, 101 go from jagged
-(overfit) to smooth (underfit); test accuracy peaks around **k = 15** while k = 1 scores a
-perfect 1.0 on *training* only. Takeaway: k controls the bias/variance trade-off; pick it by
-test accuracy.
+**02a · knn_classifier (~4 s).** Now on all **40,000** indents (28,000 train / 12,000 test).
+Decision boundaries for k = 1, 15, 101 still go from jagged (overfit) to smooth (underfit). With
+this much cleanly-separable data every k classifies at ≈ 0.999, so the test-accuracy curve is
+nearly flat; the visible overfitting signal is that **k = 1 scores a perfect 1.0 on *training***
+but slightly less on the test set. Takeaway: more data shrinks the overfit gap — read it from the
+train-vs-test split, not the test ranking alone.
 
 **03 · supervised_trees_rf_shap (~13 s).** A depth-3 tree reaches 0.98 and prints readable
 rules (it splits on **Depth** and **E**, not only H); random forest and boosting reach ~1.00.
