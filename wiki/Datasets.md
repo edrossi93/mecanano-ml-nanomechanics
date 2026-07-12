@@ -61,7 +61,9 @@ exposed **5 µm cubes**. Several notebooks use its depth-resolved curves.*
 pattern shows as the softer / less-stiff lattice cutting through the intact coating.*
 
 ![Al–Cu depth-resolved map slice](images/ds_alcu_hsnm.png)
-*The depth-resolved Al–Cu map at one depth slice — hardness and modulus.*
+*The depth-resolved Al–Cu map at one depth slice — hardness and modulus. **Notebook 08** uses
+its full curves to map the two phases (soft Al matrix vs hard Al₂Cu) from a single depth and from
+the whole curve, and shows why the whole-curve map is more robust.*
 
 ## Synthetic data — `data/synthetic/`
 `bilayer_synthetic.csv` — simulated film-on-substrate curves with **known** film/substrate

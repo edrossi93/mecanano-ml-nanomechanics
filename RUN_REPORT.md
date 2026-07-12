@@ -25,12 +25,13 @@ and UMAP wobble slightly run-to-run — treat every number below as "about this"
 | 05_autoencoder_latent_space | ✅ pass | reconstruction MSE 0.057; 25 anomalies flagged | ~8 s |
 | 06_correlative_registration | ✅ pass | NCC 0.18→0.71; angle 6.0° recovered (true 6.0); agreement 79.7%, Dice 0.80 | ~3 s |
 | 07_substrate_layer_deconvolution | ✅ pass | milled logo clustered from real CrN/Cr/Si; synthetic multilayer recovered (CrN 22.1/Cr 5.0/Si 12.0); ML R²=0.98 | ~6 s |
+| 08_single_vs_depth_resolved | ✅ pass | Al–Cu two-phase map: single-depth (2.8/8.2 GPa) vs whole-curve (57% hard); **ARI 0.86** | ~9 s |
 | 10_cnn_mnist | ✅ pass | MNIST test accuracy **0.92** | ~8 s |
 | 11_popin_detection | ✅ pass | synthetic pop-in detected at the injected load; real curves flagged | ~3 s |
 | 12_regression_curvefitting | ✅ pass | Kick's law n ≈ 1.89; RF regression R² ≈ 0.80 | ~4 s |
 | 13_yolo_defect_detection | ✅ pass | illustration mode (ultralytics optional) | ~3 s |
 
-**16 / 16 notebooks pass on CPU.** Total wall-clock ≈ 1.8 minutes. Notebook 13 runs in
+**17 / 17 notebooks pass on CPU.** Total wall-clock ≈ 2 minutes. Notebook 13 runs in
 illustration mode (no `ultralytics`) and is excluded from CI as optional/heavy.
 
 ### Fixes applied during this pass
@@ -108,6 +109,13 @@ the **milled pattern** and clustering segments intact-CrN (~17 GPa) from milled/
 synthetic multilayer (known thicknesses) is fitted to recover all three layer hardnesses (CrN 22.1,
 Cr 5.0, Si 12.0 vs true 22/5/12), and a random forest learns the deconvolution (**R² = 0.98**).
 Takeaway: match the depth range to the layer you want — cluster shallow maps, deconvolve deep curves.
+
+**08 · single_vs_depth_resolved (~9 s).** The depth-resolved Al–Cu map (19,718 indents) is
+clustered two ways into its soft matrix and hard Al₂Cu intermetallic: from **one depth** (50 nm →
+2.8 vs 8.2 GPa) and from the **whole hardness curve** (PCA→k-means; 57% hard, 5 components keep
+0.98 of the variance). The two phase maps agree at **ARI 0.86**; the single-depth answer matches the
+whole-curve one **0.83 at a shallow 15 nm** but **0.93 at 80 nm**. Takeaway: a depth-resolved map is
+a stack of single-depth maps — using the whole curve needs no chosen depth and is more robust.
 
 **10 · cnn_mnist (~8 s).** A small CNN reaches **0.92** on MNIST in 2 epochs, with a near-diagonal
 confusion matrix. Takeaway: the same convolutional idea as notebook 04 — and never shuffle the

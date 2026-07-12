@@ -63,6 +63,7 @@ like a gentler build-up.
 | 05 | `05_autoencoder_latent_space` | **autoencoder**, the **latent space**, anomaly detection |
 | 06 | `06_correlative_registration` | aligning two maps: **NCC**, transform recovery, agreement & confusion |
 | 07 | `07_substrate_layer_deconvolution` | **coating vs substrate** deconvolution (physics + ML) on a real CrN–Cr bilayer |
+| 08 | `08_single_vs_depth_resolved` | **single-depth vs depth-resolved** phase mapping — one depth vs the whole curve (Al–Cu) |
 | 10 | `10_cnn_mnist` | the classic MNIST **CNN** warm-up (refreshed) |
 | 11 | `11_popin_detection` | a transparent **pop-in** detector, validated on a known signal |
 | 12 | `12_regression_curvefitting` | Kick's-law **curve fitting** + **Random-Forest regression** |
@@ -76,8 +77,9 @@ run and what each one should produce.
 All datasets are **openly licensed** and shipped as open, human-readable **CSV**
 (see [`data/README.md`](data/README.md)):
 - the **CC BY 4.0** Al–Cu / duplex-steel HSNM maps (Besharatloo & Wheeler, 2021) and MNIST;
-- the author's own (CC BY 4.0) raw load–depth curves, AFM-collocated grid, and the
-  depth-resolved **CrN-on-Cr bilayer** used for the coating/substrate deconvolution (notebook 07);
+- the author's own (CC BY 4.0) raw load–depth curves, AFM-collocated grid, the
+  depth-resolved **CrN-on-Cr bilayer** used for the coating/substrate deconvolution (notebook 07),
+  and a depth-resolved **Al–Cu** map used for single-depth-vs-whole-curve phase mapping (notebook 08);
 - a transparent **synthetic** bilayer set for method validation.
 
 The whole ML arc — unsupervised → supervised → multimodal → depth-resolved deconvolution —
@@ -87,7 +89,7 @@ is taught on these.
 
 ```
 mecanano-ml-nanomechanics/
-├── notebooks/            # the tutorials (00–06, 01a/02a/03a/04a, 10–13)
+├── notebooks/            # the tutorials (00–08 core, 01a/02a/03a/04a on-ramps, 10–13 classics)
 ├── src/mecanano_ml/      # shared loaders, features and plotting helpers
 ├── data/                 # openly-licensed datasets (+ provenance)
 ├── wiki/                 # source for the GitHub Wiki (setup, glossary, FAQ)
