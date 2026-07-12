@@ -15,7 +15,7 @@ and UMAP wobble slightly run-to-run — treat every number below as "about this"
 |---|---|---|---|
 | 00_start_here | ✅ pass | loads 40,000-indent Al–Cu single-depth map + ~6,600-indent AFM grid (etched 5 µm cubes) + curves | ~4 s |
 | 01_features_and_pca | ✅ pass | PCA explains 88%/12% on 3 features; whole-curve PCA + t-SNE/UMAP render | ~20 s |
-| 01a_linear_and_logistic_regression | ✅ pass | linear E–H R² = 0.71; logistic classifier acc ≈ 1.00 | ~4 s |
+| 01a_linear_and_logistic_regression | ✅ pass | Kick's-law fit `P ∝ h²` R² = 0.999; logistic classifier acc ≈ 1.00 | ~13 s |
 | 02_clustering_phases | ✅ pass | all 40k: silhouette peak **k = 2** (0.61); HDBSCAN 2 clusters/~3% noise; ARI(k-means, GMM) = 0.86 | ~9 s |
 | 02a_knn_classifier | ✅ pass | all 40k (28k train): boundaries jagged→smooth; every k ≈ 0.999, k=1 train = 1.0 is the overfit signal | ~4 s |
 | 03_supervised_trees_rf_shap | ✅ pass | tree 0.98, RF/boosting 1.00; SMOTE recall 0.98→0.99; SHAP + permutation | ~13 s |
@@ -61,10 +61,12 @@ into two clouds. On the whole 56-point curve, the first three components capture
 the variance, and t-SNE/UMAP lay the curves out grouped by hardness. Takeaway: standardise,
 then a few components carry the structure.
 
-**01a · linear_and_logistic_regression (~4 s).** Linear regression of `E` on `H` gives a
-slope ≈ 7 and R² ≈ 0.71 (a real but imperfect relationship). Logistic regression separates
-the two phases with a straight decision boundary at ≈ 1.00 training accuracy and produces a
-smooth probability map. Takeaway: the two simplest models — a line, and a linear classifier.
+**01a · linear_and_logistic_regression (~13 s).** Linear regression fits **Kick's law** on a
+load–depth curve: load against depth² is a near-perfect straight line (slope C ≈ 119 mN/µm²,
+R² ≈ 0.999) — a genuinely linear physical law, the case where a straight line is the right
+model. Logistic regression then separates the two Al–Cu phases with a straight decision
+boundary at ≈ 1.00 training accuracy and produces a smooth probability map. Takeaway: the two
+simplest models — a line where the physics is linear, and a linear classifier.
 
 **02 · clustering_phases (~9 s).** On all **40,000** indents the silhouette peaks at **k = 2**
 (0.61) — the clustering itself uses every point; only the O(n²) silhouette score samples 10,000.
