@@ -16,7 +16,7 @@ and UMAP wobble slightly run-to-run — treat every number below as "about this"
 | 00_start_here | ✅ pass | loads 40,000-indent Al–Cu single-depth map + ~6,600-indent AFM grid (etched 5 µm cubes) + curves | ~4 s |
 | 01_features_and_pca | ✅ pass | PCA explains 88%/12% on 3 features; whole-curve PCA + t-SNE/UMAP render | ~20 s |
 | 01a_linear_and_logistic_regression | ✅ pass | Kick's-law fit `P ∝ h²` R² = 0.999; logistic classifier acc ≈ 1.00 | ~13 s |
-| 02_clustering_phases | ✅ pass | all 40k: silhouette peak **k = 2** (0.61); HDBSCAN 2 clusters/~3% noise; ARI(k-means, GMM) = 0.86 | ~9 s |
+| 02_clustering_phases | ✅ pass | all 40k: silhouette peak **k = 2** (0.61); GMM BIC elbow at 2–3 (3rd = interface); HDBSCAN 2 clusters/~3% noise; ARI = 0.86 | ~30 s |
 | 02a_knn_classifier | ✅ pass | all 40k (28k train): boundaries jagged→smooth; every k ≈ 0.999, k=1 train = 1.0 is the overfit signal | ~4 s |
 | 03_supervised_trees_rf_shap | ✅ pass | tree 0.98, RF/boosting 1.00; SMOTE recall 0.98→0.99; SHAP + permutation | ~13 s |
 | 03a_evaluating_models | ✅ pass | CV acc 0.851 ± 0.010; rare-phase **recall 0.61 vs 0.84 acc**; ROC/PR | ~5 s |
@@ -68,11 +68,14 @@ model. Logistic regression then separates the two Al–Cu phases with a straight
 boundary at ≈ 1.00 training accuracy and produces a smooth probability map. Takeaway: the two
 simplest models — a line where the physics is linear, and a linear classifier.
 
-**02 · clustering_phases (~9 s).** On all **40,000** indents the silhouette peaks at **k = 2**
+**02 · clustering_phases (~30 s).** On all **40,000** indents the silhouette peaks at **k = 2**
 (0.61) — the clustering itself uses every point; only the O(n²) silhouette score samples 10,000.
-k-means paints two coherent regions, GMM adds a confidence map that darkens at boundaries,
-HDBSCAN (also on all 40,000) finds **2 clusters** plus ~3% noise, and ARI(k-means, GMM) = 0.86
-confirms the split is robust. Takeaway: "how many phases?" becomes a defensible number.
+A GMM **BIC** sweep gives a second opinion: gains are large through **k = 2–3** then flatten, and
+the third component is an **interface / mixed** mode (H ≈ 3.8 GPa, between the soft ≈ 1.4 and hard
+≈ 4.9) — so two is the robust answer, three a defensible finer view. k-means paints two coherent
+regions, GMM adds a confidence map that darkens at boundaries, HDBSCAN (also on all 40,000) finds
+**2 clusters** plus ~3% noise, and ARI(k-means, GMM) = 0.86 confirms the split is robust. Takeaway:
+"how many phases?" becomes a defensible number — two here, with three a reasonable finer split.
 
 **02a · knn_classifier (~4 s).** Now on all **40,000** indents (28,000 train / 12,000 test).
 Decision boundaries for k = 1, 15, 101 still go from jagged (overfit) to smooth (underfit). With
