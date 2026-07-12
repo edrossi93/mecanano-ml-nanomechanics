@@ -70,6 +70,8 @@ like a gentler build-up.
 | 12 | `12_regression_curvefitting` | Kick's-law **curve fitting** + **Random-Forest regression** |
 | 13 | `13_yolo_defect_detection` | object detection in micrographs with **YOLO** (optional) |
 | 14  | `14_uncertainty_quantification`      | **uncertainty quantification** — honest confidence three ways (ensemble, RF variance, MC-dropout) + **calibration** (advanced) |
+| 15 | `15_microstructure_segmentation` | **U-Net segmentation** of a two-phase microstructure: a CNN for microscopy, beyond curves |
+| 16 | `16_bayesian_optimization` | **Bayesian optimization**: choose the next experiment to maximise a property |
 
 Every notebook runs top-to-bottom on CPU; see [`RUN_REPORT.md`](RUN_REPORT.md) for the latest
 run and what each one should produce.

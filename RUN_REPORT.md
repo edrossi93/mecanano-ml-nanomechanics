@@ -26,12 +26,16 @@ and UMAP wobble slightly run-to-run — treat every number below as "about this"
 | 06_correlative_registration | ✅ pass | NCC 0.18→0.71; angle 6.0° recovered (true 6.0); agreement 79.7%, Dice 0.80 | ~3 s |
 | 07_substrate_layer_deconvolution | ✅ pass | milled logo clustered from real CrN/Cr/Si; synthetic multilayer recovered (CrN 22.1/Cr 5.0/Si 12.0); ML R²=0.98 | ~6 s |
 | 08_single_vs_depth_resolved | ✅ pass | Al–Cu two-phase map: single-depth (2.8/8.2 GPa) vs whole-curve (57% hard); **ARI 0.86** | ~9 s |
+| 09_multimodal_pipeline | ✅ pass | register (5.0° recovered), transfer 60% of labels, RF fills the rest: held-out acc 0.84, 95% agreement | ~10 s |
 | 10_cnn_mnist | ✅ pass | MNIST test accuracy **0.92** | ~8 s |
 | 11_popin_detection | ✅ pass | synthetic pop-in detected at the injected load; real curves flagged | ~3 s |
 | 12_regression_curvefitting | ✅ pass | Kick's law n ≈ 1.89; RF regression R² ≈ 0.80 | ~4 s |
 | 13_yolo_defect_detection | ✅ pass | illustration mode (ultralytics optional) | ~3 s |
+| 14_uncertainty_quantification | ✅ pass | ensemble σ 0.095 GPa (±2σ coverage 0.86), RF-variance σ 0.49 (0.99), MC-dropout when torch present + calibration | ~6 s |
+| 15_microstructure_segmentation | ✅ pass | synthetic two-phase micrographs: U-Net **Dice 0.98 / IoU 0.95** vs threshold 0.51; phase-fraction MAE 0.008 | ~20 s |
+| 16_bayesian_optimization | ✅ pass | GP + UCB finds the hidden optimum (x = 0.72) in ~8 experiments, beating random search | ~8 s |
 
-**17 / 17 notebooks pass on CPU.** Total wall-clock ≈ 2 minutes. Notebook 13 runs in
+**21 / 21 notebooks pass on CPU.** Total wall-clock ≈ 2.5 minutes. Notebook 13 runs in
 illustration mode (no `ultralytics`) and is excluded from CI as optional/heavy.
 
 ### Fixes applied during this pass
@@ -120,6 +124,12 @@ clustered two ways into its soft matrix and hard Al₂Cu intermetallic: from **o
 whole-curve one **0.83 at a shallow 15 nm** but **0.93 at 80 nm**. Takeaway: a depth-resolved map is
 a stack of single-depth maps — using the whole curve needs no chosen depth and is more robust.
 
+**09 · multimodal_pipeline (~10 s).** The full correlative workflow end to end: it registers two maps
+(recovering a 5.0° rotation), transfers phase labels where they overlap (about 60% of 40,000 indents),
+trains a classifier on those, and fills the remaining gaps. Held-out accuracy on the transferred
+labels is 0.84, and it agrees with the measured labels 95% of the time. Takeaway: chaining notebooks
+06 and 03 turns two partial maps into one complete labelled map.
+
 **10 · cnn_mnist (~8 s).** A small CNN reaches **0.92** on MNIST in 2 epochs, with a near-diagonal
 confusion matrix. Takeaway: the same convolutional idea as notebook 04 — and never shuffle the
 test set while scoring.
@@ -135,6 +145,25 @@ Takeaway: physics gives interpretable coefficients; ML captures the trend — ju
 **13 · yolo_defect_detection (~3 s).** Runs in illustration mode (no `ultralytics`), drawing example
 detection boxes and explaining how to train on your own micrographs. Takeaway: detection =
 classification + localisation; optional and excluded from CI.
+
+**14 · uncertainty_quantification (~6 s).** Hardness is predicted three ways, each with an honest
+error bar: a deep ensemble (mean σ ≈ 0.10 GPa, ±2σ covering 0.86 of held-out points), random-forest
+tree variance (σ ≈ 0.49 GPa, coverage 0.99), and MC-dropout where PyTorch is present, then a
+calibration check of those coverages. Takeaway: a prediction without an uncertainty is half an answer,
+and the uncertainty has to be calibrated rather than assumed.
+
+**15 · microstructure_segmentation (~20 s).** On synthetic two-phase micrographs whose phases share a
+brightness but differ in texture, a brightness threshold scores Dice ≈ 0.51 (chance) while a
+~66k-parameter tiny U-Net reaches **Dice 0.98 / IoU 0.95**, and its masks recover the phase fraction
+to a mean error of 0.008. Takeaway: when phases differ by texture rather than level you need a CNN,
+and its mask becomes a quantitative microstructure measurement. The data is fully synthetic, so there
+is nothing to download.
+
+**16 · bayesian_optimization (~8 s).** A Gaussian-process surrogate plus a UCB acquisition function
+locates the hidden global optimum (x = 0.72, avoiding a decoy peak at 0.25) within about 8
+experiments, and its best-so-far curve stays above random search throughout. Takeaway: when
+experiments are expensive, model the property with uncertainty and let the acquisition function choose
+what to run next. This is the loop behind accelerated materials discovery.
 
 ## Verdict
 Everything runs top-to-bottom on CPU with no errors. The four issues found during this pass
