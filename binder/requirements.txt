@@ -1,0 +1,17 @@
+# Binder environment (repo2docker uses this instead of the root environment.yml,
+# so Binder builds with pip and a CPU-only PyTorch — much faster than the default
+# CUDA build). The `+cpu` wheel sorts above the CUDA one, so --extra-index-url
+# pulls the small CPU package.
+--extra-index-url https://download.pytorch.org/whl/cpu
+numpy
+pandas
+scipy
+matplotlib
+scikit-learn
+scikit-image
+umap-learn
+hdbscan
+imbalanced-learn
+shap
+pyts
+torch

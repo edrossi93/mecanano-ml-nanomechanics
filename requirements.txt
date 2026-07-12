@@ -1,11 +1,19 @@
-# Core scientific stack (Python 3.10+)
+# Core scientific stack for the MecaNano ML tutorial (Python 3.10–3.12, CPU-only).
+#
+# Flexible install (recommended for most users):
+#     pip install -r requirements.txt
+# Exact, reproducible versions we verified (use if a fresh install ever breaks):
+#     pip install -r requirements-lock.txt
+# On Linux, get the small CPU-only PyTorch with:
+#     pip install torch --index-url https://download.pytorch.org/whl/cpu
+#
+# Core
 numpy
 pandas
 scipy
 matplotlib
 scikit-learn
 jupyterlab
-ipywidgets
 # Unsupervised / imbalance / interpretability
 umap-learn
 hdbscan
@@ -13,7 +21,7 @@ imbalanced-learn
 shap
 # Imaging & registration (notebook 06)
 scikit-image
-# Curve-as-image + deep learning on CPU (notebooks 04, 05, 10)
+# Curve-as-image + deep learning on CPU (notebooks 04, 04a, 05, 10)
 pyts
 torch
 # Optional — object detection (notebook 13 only)
