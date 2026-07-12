@@ -34,7 +34,7 @@ Every term you'll meet in the notebooks, in **one plain sentence**, each with a
 
 - **Classifier** — a model that predicts a category. *Example: matrix vs intermetallic.*
 - **Regression / regressor** — predicting a **number** instead of a category. *Example: predict hardness from curve features.*
-- **Linear regression** — fit the best straight line/plane to predict a number. *Example: predict `E` from `H`.*
+- **Linear regression** — fit the best straight line/plane to predict a number. *Example: fit load against depth² on an indentation curve (Kick's law).*
 - **Logistic regression** — a linear **classifier** that outputs a probability. *Example: P(hard phase) from `H, E`.*
 - **Decision boundary** — the line/surface where a classifier switches its prediction. *Example: the straight split logistic regression draws between phases.*
 - **Decision tree** — a flowchart of yes/no threshold questions ending in a prediction. *Example: "is H > 3 GPa? → intermetallic".*
