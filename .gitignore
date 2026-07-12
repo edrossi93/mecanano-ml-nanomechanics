@@ -1,45 +1,10 @@
-# ========== Jupyter ========== #
-.ipynb_checkpoints/
-*.ipynb_checkpoints
-*.~ipynb
-
-# ========== Python ========== #
 __pycache__/
 *.py[cod]
-*.so
-*.egg
-*.egg-info/
-*.pkl
-*.h5
-*.log
-
-# ========== VSCode / IDE ========== #
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# ========== Dataset e Output ========== #
-# commenta la riga se vuoi committare questi file esplicitamente
-# data/
-# *.csv
-# *.zip
-# *.tar.gz
-# *.hdf5
-# *.npy
-# *.npz
-
-# ========== YOLO training output ========== #
-runs/
-weights/
-models/
-results/
-*.onnx
-*.pt
-*.engine
-*.tflite
-
-# ========== System ========== #
+.ipynb_checkpoints/
 .DS_Store
-Thumbs.db
-desktop.ini
+.venv/
+env/
+# downloaded model weights (notebook 13)
+*.pt
+yolov8*.pt
+runs/

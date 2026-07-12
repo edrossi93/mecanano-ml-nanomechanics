@@ -5,16 +5,18 @@ dependencies:
   - python=3.10
   - numpy
   - pandas
+  - scipy
   - matplotlib
-  - seaborn
   - scikit-learn
+  - scikit-image
   - jupyterlab
   - ipywidgets
+  - hdbscan
+  - umap-learn
+  - imbalanced-learn
+  - shap
   - pip
   - pip:
-      - tensorflow-cpu==2.15.0
-      - keras==2.15.0
-      - opencv-python
-      - ultralytics
-      - torchvision
+      - pyts
       - torch
+      # - ultralytics   # optional, notebook 13
