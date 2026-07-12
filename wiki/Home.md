@@ -40,11 +40,12 @@ Open the notebooks roughly in this order — each builds on the last.
 | 02a | `knn_classifier` | classify by **nearest neighbours** |
 | 03 | `supervised_trees_rf_shap` | **decision tree → random forest → boosting**, SMOTE, **SHAP** |
 | 03a | `evaluating_models` | cross‑validation, **precision/recall, ROC** — trust a model |
-| 04 | `curve_as_image_cnn` | **GASF** (curve→image) + a small **CNN** |
+| 04 | `curve_as_image_cnn` | **GAF** (curve→image) + a small **CNN** |
 | 04a | `1d_cnn_on_curves` | a **1‑D CNN** on the raw curve (keeps magnitude) |
 | 05 | `autoencoder_latent_space` | **autoencoder** and its **latent space** |
 | 06 | `correlative_registration` | aligning two maps, agreement & confusion |
 | 07 | `substrate_layer_deconvolution` | **coating vs substrate** deconvolution (physics + ML) on a CrN–Cr bilayer |
+| 08 | `single_vs_depth_resolved` | **single‑depth vs depth‑resolved** phase mapping — one depth vs the whole curve (Al–Cu) |
 | 10–13 | refreshed classics | MNIST CNN · pop‑in detection · curve fitting · YOLO (optional) |
 
 ## Wiki pages
@@ -56,11 +57,11 @@ Open the notebooks roughly in this order — each builds on the last.
 - **[[From notebook to your own data]]** — plug your own maps/curves into the helpers.
 - **[[Going further]]** — the optional/advanced notebooks and references.
 
-## Ground rules (for contributors)
+## Contributing
 
-- **Only public data.** No proprietary / collaborator data; never any private file paths.
-- **Beginner-first**, always: define terms, say what the reader should see, add a recap.
-- Everything must **run on CPU** in a couple of minutes per notebook.
+Keep it **beginner-first** (define terms, say what the reader should see, add a recap),
+**open** (only openly-licensed data), and **CPU-only** (a couple of minutes per notebook).
 
-Data licence: the high-speed maps are **CC BY 4.0** — please cite *Besharatloo &
-Wheeler, J. Mater. Res. 36, 2198–2212 (2021)*. See **[[Datasets]]** for details.
+Data licence: the **single-depth** Al–Cu/duplex maps are **CC BY 4.0** — please cite
+*Besharatloo & Wheeler, J. Mater. Res. 36, 2198–2212 (2021)*; the **depth-resolved**
+maps and curves are the author's own (**CC BY 4.0**). See **[[Datasets]]** for the full split.
