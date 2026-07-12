@@ -4,6 +4,10 @@ __pycache__/
 .DS_Store
 .venv/
 env/
+# test / tooling caches
+.pytest_cache/
+pytest-cache-files-*
+.ruff_cache/
 # downloaded model weights (notebook 13)
 *.pt
 yolov8*.pt
