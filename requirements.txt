@@ -1,0 +1,20 @@
+# Core scientific stack (Python 3.10+)
+numpy
+pandas
+scipy
+matplotlib
+scikit-learn
+jupyterlab
+ipywidgets
+# Unsupervised / imbalance / interpretability
+umap-learn
+hdbscan
+imbalanced-learn
+shap
+# Imaging & registration (notebook 06)
+scikit-image
+# Curve-as-image + deep learning on CPU (notebooks 04, 05, 10)
+pyts
+torch
+# Optional — object detection (notebook 13 only)
+# ultralytics
