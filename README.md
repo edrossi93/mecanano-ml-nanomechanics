@@ -69,7 +69,7 @@ like a gentler build-up.
 | 11 | `11_popin_detection` | a transparent **pop-in** detector, validated on a known signal |
 | 12 | `12_regression_curvefitting` | Kick's-law **curve fitting** + **Random-Forest regression** |
 | 13 | `13_yolo_defect_detection` | object detection in micrographs with **YOLO** (optional) |
-| 14  | `14_uncertainty_quantification`      | **uncertainty quantification** — honest confidence three ways (ensemble, RF variance, MC-dropout) + **calibration** (advanced) |
+| 14  | `14_uncertainty_quantification`      | **uncertainty quantification**: honest confidence three ways (ensemble, RF variance, MC-dropout) + **calibration** (advanced) |
 | 15 | `15_microstructure_segmentation` | **U-Net segmentation** of a two-phase microstructure: a CNN for microscopy, beyond curves |
 | 16 | `16_bayesian_optimization` | **Bayesian optimization**: choose the next experiment to maximise a property |
 
@@ -86,14 +86,14 @@ All datasets are **openly licensed** and shipped as open, human-readable **CSV**
   and a depth-resolved **Al–Cu** map used for single-depth-vs-whole-curve phase mapping (notebook 08);
 - a transparent **synthetic** bilayer set for method validation.
 
-The whole ML arc — unsupervised → supervised → uncertainty & trust → correlative / multimodal → depth-resolved deconvolution —
-is taught on these.
+The whole ML arc runs across these notebooks: unsupervised → supervised → uncertainty & trust →
+correlative / multimodal → depth-resolved deconvolution.
 
 ## Repository layout
 
 ```
 mecanano-ml-nanomechanics/
-├── notebooks/            # the tutorials (00–09 core, 01a/02a/03a/04a on-ramps, 10–14 classics/advanced)
+├── notebooks/            # the tutorials (00–09 core, 01a/02a/03a/04a on-ramps, 10–16 classics + advanced)
 ├── src/mecanano_ml/      # shared loaders, features and plotting helpers
 ├── data/                 # openly-licensed datasets (+ provenance)
 ├── wiki/                 # source for the GitHub Wiki (setup, glossary, FAQ)

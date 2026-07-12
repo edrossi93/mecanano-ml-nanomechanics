@@ -57,6 +57,15 @@ Every term you'll meet in the notebooks, in **one plain sentence**, each with a
 - **ROC curve / AUC** — performance across all thresholds; AUC = 1 perfect, 0.5 random. *Example: comparing classifiers on a noisy phase task.*
 - **Precision–recall curve / AP** — like ROC but better when a class is rare. *Example: the honest view for a 25%-abundance phase.*
 
+## Uncertainty & calibration
+
+- **Predictive uncertainty** — a model's own estimate of how unsure a prediction is, given as a spread σ or an interval. *Example: predicted hardness 6.2 ± 0.3 GPa, not just 6.2.*
+- **Prediction interval / coverage** — the band meant to hold the truth a stated fraction of the time; coverage is the fraction it really does. *Example: a ±2σ "95%" band that captures 95% of held-out indents.*
+- **Calibration** — whether the stated confidence matches reality; a calibrated 95% band is right 95% of the time. *Example: an over-confident model whose "95%" band only covers 60%.*
+- **Deep ensemble** — several models trained from different seeds; their disagreement is the uncertainty. *Example: five nets predicting H, their spread flags hard indents.*
+- **MC-dropout** — leave dropout on at inference and run many passes; the spread of outputs is a neural uncertainty. *Example: 50 stochastic passes over one curve give a σ.*
+- **Tree variance (bootstrap)** — the disagreement among a random forest's trees, a free uncertainty with no extra models. *Example: high tree σ where the phases overlap.*
+
 ## Deep learning
 
 - **Tensor** — a multi-dimensional array a neural network computes with (PyTorch's array). *Example: a batch of curve-images.*
@@ -75,6 +84,19 @@ Every term you'll meet in the notebooks, in **one plain sentence**, each with a
 - **Phase cross-correlation** — an FFT trick that finds the shift between two images fast. *Example: recovering a (12, −8)-pixel offset.*
 - **Dice score** — overlap of a labelled region between two maps (1 = perfect). *Example: do both maps mark the same pixels 'hard'?*
 - **Object detection / YOLO** — locating *and* labelling every object with a box + confidence. *Example: boxing defects in a micrograph.*
+- **Segmentation** — labelling every pixel of an image with a class, producing a map the same size as the image. *Example: marking each pixel of a micrograph as matrix or precipitate.*
+- **IoU (intersection over union)** — overlap of two regions divided by their union; 1 is perfect. *Example: scoring a predicted phase mask against the truth.*
+- **U-Net** — an encoder–decoder CNN with skip connections that outputs a full-size label map. *Example: segmenting grains from a micrograph.*
+- **Phase fraction** — the share of area belonging to a phase, read straight off a segmentation. *Example: 42% of a two-phase micrograph is the hard phase.*
+- **Label transfer** — copying labels from one aligned modality onto another's measurement points. *Example: putting a second technique's phase labels onto the indents beneath them.*
+- **Gap-filling (predict everywhere)** — train on the labelled points, then predict the unmeasured ones to complete a map. *Example: a forest filling regions a second technique could not index.*
+
+## Optimisation & discovery
+
+- **Surrogate model** — a cheap stand-in for an expensive property, fit to the data so far and queried instead of experimenting. *Example: a Gaussian process predicting hardness vs a processing setting.*
+- **Acquisition function** — a score over settings saying how useful each next experiment would be. *Example: UCB = mean + κ·σ, high where the model is promising or unsure.*
+- **Bayesian optimization** — surrogate + acquisition in a loop, to find an optimum in few experiments. *Example: locating the anneal that maximises hardness in ~8 tries.*
+- **Exploration vs exploitation** — trying uncertain settings that might hide the optimum versus refining the best-known one. *Example: κ in UCB tunes the balance.*
 
 ---
 
