@@ -53,7 +53,7 @@ curves. Takeaway: the data is two-phase, and one helper (`mm`) loads everything.
 
 **01 · features_and_pca (~20 s).** `H, E, H/E` are strongly correlated (0.66–0.95), so PCA
 puts **88%** of the variance on PC1 and **12%** on PC2 — the PC1–PC2 scatter already splits
-into two clouds. On the whole 64-point curve, the first three components capture most of
+into two clouds. On the whole 56-point curve, the first three components capture most of
 the variance, and t-SNE/UMAP lay the curves out grouped by hardness. Takeaway: standardise,
 then a few components carry the structure.
 

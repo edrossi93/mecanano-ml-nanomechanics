@@ -16,6 +16,7 @@ _MAPS = {
     "alcu_5um":  "nanoindent_maps/Al-Cu Eutectic 5um.csv",
     "duplex_1um":"nanoindent_maps/Duplex Steel 1um.csv",
     "duplex_2um":"nanoindent_maps/Duplex Steel 2um.csv",
+    "duplex_3p5um":"nanoindent_maps/Duplex Steel 3p5um.csv",
     "duplex_5um":"nanoindent_maps/Duplex Steel 5um.csv",
     "titanium":  "nanoindent_maps/Titanium_dataset.csv",
 }

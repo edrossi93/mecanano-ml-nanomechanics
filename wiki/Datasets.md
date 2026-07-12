@@ -17,7 +17,7 @@ thousands** of indents on a regular grid.
 df = mm.load_map("alcu_2um")     # a tidy table, one row per indent
 mm.list_maps()                   # every map name you can load
 ```
-Names include `alcu_1um/2um/3um/5um`, `duplex_1um/2um/5um`, `titanium`.
+Names include `alcu_1um/2um/3um/5um`, `duplex_1um/2um/3p5um/5um`, `titanium`.
 
 ![Al–Cu hardness and modulus maps](images/ds_maps.png)
 *The Al–Cu map: hardness (left) and modulus (right). The two phases are already visible.*
