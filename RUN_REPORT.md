@@ -24,12 +24,13 @@ and UMAP wobble slightly run-to-run — treat every number below as "about this"
 | 04a_1d_cnn_on_curves | ✅ pass | 1-D CNN on raw curve **0.90** (beats the GAF CNN — keeps scale) | ~7 s |
 | 05_autoencoder_latent_space | ✅ pass | reconstruction MSE 0.057; 25 anomalies flagged | ~8 s |
 | 06_correlative_registration | ✅ pass | NCC 0.18→0.71; angle 6.0° recovered (true 6.0); agreement 79.7%, Dice 0.80 | ~3 s |
+| 07_substrate_layer_deconvolution | ✅ pass | milled logo clustered from real CrN/Cr/Si; synthetic multilayer recovered (CrN 22.1/Cr 5.0/Si 12.0); ML R²=0.98 | ~6 s |
 | 10_cnn_mnist | ✅ pass | MNIST test accuracy **0.92** | ~8 s |
 | 11_popin_detection | ✅ pass | synthetic pop-in detected at the injected load; real curves flagged | ~3 s |
 | 12_regression_curvefitting | ✅ pass | Kick's law n ≈ 1.89; RF regression R² ≈ 0.80 | ~4 s |
 | 13_yolo_defect_detection | ✅ pass | illustration mode (ultralytics optional) | ~3 s |
 
-**15 / 15 notebooks pass on CPU.** Total wall-clock ≈ 1.7 minutes. Notebook 13 runs in
+**16 / 16 notebooks pass on CPU.** Total wall-clock ≈ 1.8 minutes. Notebook 13 runs in
 illustration mode (no `ultralytics`) and is excluded from CI as optional/heavy.
 
 ### Fixes applied during this pass
@@ -100,6 +101,13 @@ autoencoder. Takeaway: learned coordinates + a free anomaly detector.
 to 0.18; the angle search + phase-correlation recovers **6.0°** and restores NCC to 0.71, giving
 **79.7%** point-to-point agreement and **Dice 0.80**. Takeaway: the mechanics↔microstructure
 registration method, on public H/E channels only.
+
+**07 · substrate_layer_deconvolution (~6 s).** On a real **CrN(200 nm)/Cr(200 nm)/Si** stack with a
+milled logo, the shallow (≤64 nm) indents sense only the top layer, so the coating-hardness map traces
+the **milled pattern** and clustering segments intact-CrN (~17 GPa) from milled/thinned regions. A
+synthetic multilayer (known thicknesses) is fitted to recover all three layer hardnesses (CrN 22.1,
+Cr 5.0, Si 12.0 vs true 22/5/12), and a random forest learns the deconvolution (**R² = 0.98**).
+Takeaway: match the depth range to the layer you want — cluster shallow maps, deconvolve deep curves.
 
 **10 · cnn_mnist (~8 s).** A small CNN reaches **0.92** on MNIST in 2 epochs, with a near-diagonal
 confusion matrix. Takeaway: the same convolutional idea as notebook 04 — and never shuffle the
