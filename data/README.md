@@ -1,20 +1,24 @@
 # Datasets
 
-All data here is **non-proprietary** and safe to redistribute, and ships as open,
-human-readable **CSV** (plus a couple of `.npz`/`.xlsx`/ubyte files for the depth
-curves and MNIST). No meteorite / collaborator EBSD / unpublished data is included.
+All data here is **openly licensed** and safe to redistribute, and ships as open,
+human-readable **CSV** (plus `evaluation_data.xlsx` and the MNIST ubyte files).
+
+The maps come in two forms: **single-depth** (one hardness/modulus value per point)
+and **depth-resolved** (the full hardness/modulus-vs-depth response at every point).
 
 **Licensing at a glance** (see each section):
-- The **author's own** measurements (curves, AFM grid, the CrN-on-Cr bilayer, the
-  AlCu 4D map) are released **CC BY 4.0** — free to use *with citation*.
+- The **author's own** measurements (curves, AFM grid, the CrN-on-Cr bilayer and
+  the Al–Cu high-speed nanoindentation maps) are released **CC BY 4.0** — free to
+  use *with citation*.
 - The **third-party** Al–Cu / duplex HSNM maps are **CC BY 4.0** (Besharatloo &
   Wheeler, 2021) — keep their attribution.
 - The **synthetic** data is pure simulation (CC0 — no rights reserved).
 - MNIST keeps its standard terms.
 
-## `nanoindent_maps/` — high-speed nanoindentation property maps
-Al–Cu eutectic and duplex-steel maps (hardness, modulus, H/E per indent) plus a
-titanium map. Regular grids, tens of thousands of indents.
+## `nanoindent_maps/` — high-speed nanoindentation maps (single depth)
+Al–Cu eutectic and duplex-steel maps plus a titanium map, each with **one hardness,
+modulus and H/E per indent** (a single-depth map). Regular grids, tens of thousands of
+indents. Load with `mecanano_ml.load_map(name)`.
 
 **License / attribution — CC BY 4.0.** Please cite:
 > H. Besharatloo & J. M. Wheeler, *Influence of indentation size and spacing on
@@ -27,20 +31,21 @@ Individual indentation curves (`DEPTH`, `LOAD`, stiffness, …) used for the
 deep-learning and pop-in notebooks, plus an `evaluation_data.xlsx` summary.
 Author's own measurements, shared for teaching.
 
-## `afm_grid.npz` — small AFM-collocated grid (fast demo)
-~800 indents from a patterned standard, with per-indent scalars (`H`, `E`, `HE`,
-`S2P`, `phase_angle`) **and** the depth-resolved curves (`H_curve`, `E_curve`,
-`load_mN`) on a common `depth_nm` axis. Author's own measurement (**CC BY 4.0**).
-Load it with `mecanano_ml.load_afm_grid()`. An openable scalar-only CSV mirror is
-provided as `afm_grid_scalars.csv`.
+## `hsnm_maps/` — high-speed nanoindentation maps (depth-resolved)
+High-speed nanoindentation maps that keep the **full hardness/modulus/load-vs-depth**
+response at every point, as long-format CSVs (`indent, x_um, y_um, depth_nm, H_GPa,
+E_GPa, load_mN`). Author's own measurements (**CC BY 4.0**).
+- `afm_grid_g.csv` — an **AFM-collocated grid** on an etched-silicon standard whose
+  surface exposes a regular array of **5 µm cubes** (~6,600 indents); used by several notebooks.
+- `crn_cr_bilayer.csv` — a **CrN-on-Cr coating** map with a milled pattern (~17,000 indents).
+- `alcu_eutectic.csv` — an **Al–Cu eutectic** map (~20,000 indents).
 
-## `nanoindent_4d/` — depth-resolved (4D) coating & map data
-Long-format CSVs (`indent, x_um, y_um, depth_nm, H_GPa, E_GPa`) with the full
-hardness/modulus-vs-depth for each indent — the input for the coating/substrate
-deconvolution (notebook 07). Author's own measurements (**CC BY 4.0**).
-- `crn_cr_bilayer.csv` — a **CrN-on-Cr bilayer** high-speed map (~486 indents).
-- `alcu_eutectic_4d.csv` — a depth-resolved **Al–Cu eutectic** map (~120 indents).
-Load either with `mecanano_ml.load_4d("crn_cr_bilayer")`.
+All indents are kept (no spatial subsampling), so the maps preserve their true patterns;
+each curve is on a common depth grid.
+
+Load any of them with `mecanano_ml.load_hsnm_map("crn_cr_bilayer")` (returns the
+depth axis and per-indent H/E/load curves). The AFM grid also has a convenience
+loader, `mecanano_ml.load_afm_grid()`, using the field names the notebooks expect.
 
 ## `synthetic/` — simulated data for method validation
 `bilayer_synthetic.csv` — film-on-substrate hardness/modulus curves generated from a

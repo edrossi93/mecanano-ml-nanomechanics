@@ -41,21 +41,19 @@ grid, extent = mm.map_to_grid(df, "H")         # 2-D array + [xmin,xmax,ymin,yma
 If your export matches that, add it to the `_MAPS` dictionary in
 `src/mecanano_ml/io.py` and load it by name.
 
-### The AFM-grid format (`.npz`)
-`mm.load_afm_grid()` returns a dictionary of arrays. To build your own, save an `.npz`
-with the same keys:
-
-| key | shape | meaning |
-|-----|-------|---------|
-| `X`, `Y`, `H`, `E`, `HE` | `(n,)` | per-indent position and scalars |
-| `H_curve`, `load_mN` | `(n, 64)` | per-indent depth-resolved curves |
-| `depth_nm` | `(64,)` | the common depth axis |
+### Depth-resolved maps (the AFM grid, CrN–Cr, Al–Cu)
+These load from a **long-format CSV** in `data/hsnm_maps/`, one row per (indent, depth)
+sample, with columns `indent, x_um, y_um, depth_nm, H_GPa, E_GPa, load_mN`. To use your
+own, write that CSV and load it by name:
 
 ```python
-import numpy as np
-np.savez("my_grid.npz", X=X, Y=Y, H=H, E=E, HE=H/E,
-         H_curve=H_curve, load_mN=load_mN, depth_nm=depth_nm)
+import mecanano_ml as mm
+d = mm.load_hsnm_map("my_grid")   # dict: depth_nm (D,), and H, E, load (n_indents × D), X, Y
 ```
+
+`mm.load_afm_grid()` is a convenience view of the shipped `afm_grid_g` that also exposes
+per-indent curves `H_curve`, `E_curve`, `load_mN` (each `n_indents × D`) plus scalar
+`H`, `E`, `HE` — where `D` is the number of depth points (**56** in the shipped grids).
 
 ## Sensible first steps on new data
 1. Start with **notebook 00** patterns: load, print shapes, plot a map and a few curves.

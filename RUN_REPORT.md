@@ -13,11 +13,11 @@ and UMAP wobble slightly run-to-run — treat every number below as "about this"
 
 | Notebook | Status | Key result | Approx. runtime |
 |---|---|---|---|
-| 00_start_here | ✅ pass | loads 40,000-indent Al–Cu map + 828-indent AFM grid + curves | ~3 s |
+| 00_start_here | ✅ pass | loads 40,000-indent Al–Cu single-depth map + ~6,600-indent AFM grid (etched 5 µm cubes) + curves | ~4 s |
 | 01_features_and_pca | ✅ pass | PCA explains 88%/12% on 3 features; whole-curve PCA + t-SNE/UMAP render | ~20 s |
 | 01a_linear_and_logistic_regression | ✅ pass | linear E–H R² = 0.71; logistic classifier acc ≈ 1.00 | ~4 s |
-| 02_clustering_phases | ✅ pass | silhouette peak **k = 2** (0.61); ARI(k-means, GMM) = 0.86 | ~7 s |
-| 02a_knn_classifier | ✅ pass | best test accuracy at **k = 15**; overfit→sweet-spot→underfit shown | ~5 s |
+| 02_clustering_phases | ✅ pass | all 40k: silhouette peak **k = 2** (0.61); HDBSCAN 2 clusters/~3% noise; ARI(k-means, GMM) = 0.86 | ~9 s |
+| 02a_knn_classifier | ✅ pass | all 40k (28k train): boundaries jagged→smooth; every k ≈ 0.999, k=1 train = 1.0 is the overfit signal | ~4 s |
 | 03_supervised_trees_rf_shap | ✅ pass | tree 0.98, RF/boosting 1.00; SMOTE recall 0.98→0.99; SHAP + permutation | ~13 s |
 | 03a_evaluating_models | ✅ pass | CV acc 0.851 ± 0.010; rare-phase **recall 0.61 vs 0.84 acc**; ROC/PR | ~5 s |
 | 04_curve_as_image_cnn | ✅ pass | CNN(GAF) **0.72** vs PCA+RF **0.90** (by design — GAF drops scale) | ~13 s |
@@ -25,12 +25,13 @@ and UMAP wobble slightly run-to-run — treat every number below as "about this"
 | 05_autoencoder_latent_space | ✅ pass | reconstruction MSE 0.057; 25 anomalies flagged | ~8 s |
 | 06_correlative_registration | ✅ pass | NCC 0.18→0.71; angle 6.0° recovered (true 6.0); agreement 79.7%, Dice 0.80 | ~3 s |
 | 07_substrate_layer_deconvolution | ✅ pass | milled logo clustered from real CrN/Cr/Si; synthetic multilayer recovered (CrN 22.1/Cr 5.0/Si 12.0); ML R²=0.98 | ~6 s |
+| 08_single_vs_depth_resolved | ✅ pass | Al–Cu two-phase map: single-depth (2.8/8.2 GPa) vs whole-curve (57% hard); **ARI 0.86** | ~9 s |
 | 10_cnn_mnist | ✅ pass | MNIST test accuracy **0.92** | ~8 s |
 | 11_popin_detection | ✅ pass | synthetic pop-in detected at the injected load; real curves flagged | ~3 s |
 | 12_regression_curvefitting | ✅ pass | Kick's law n ≈ 1.89; RF regression R² ≈ 0.80 | ~4 s |
 | 13_yolo_defect_detection | ✅ pass | illustration mode (ultralytics optional) | ~3 s |
 
-**16 / 16 notebooks pass on CPU.** Total wall-clock ≈ 1.8 minutes. Notebook 13 runs in
+**17 / 17 notebooks pass on CPU.** Total wall-clock ≈ 2 minutes. Notebook 13 runs in
 illustration mode (no `ultralytics`) and is excluded from CI as optional/heavy.
 
 ### Fixes applied during this pass
@@ -47,12 +48,12 @@ illustration mode (no `ultralytics`) and is excluded from CI as optional/heavy.
 
 **00 · start_here (~3 s).** The Al–Cu map loads as 40,000 indents with columns including
 `H, E, HE, X, Y`; the hardness/modulus maps show the same two-phase pattern and the
-hardness histogram is clearly bimodal. The AFM grid loads as 828 indents with 64-point
+hardness histogram is clearly bimodal. The AFM grid loads as ~6,600 indents with depth-resolved
 curves. Takeaway: the data is two-phase, and one helper (`mm`) loads everything.
 
 **01 · features_and_pca (~20 s).** `H, E, H/E` are strongly correlated (0.66–0.95), so PCA
 puts **88%** of the variance on PC1 and **12%** on PC2 — the PC1–PC2 scatter already splits
-into two clouds. On the whole 64-point curve, the first three components capture most of
+into two clouds. On the whole 56-point curve, the first three components capture most of
 the variance, and t-SNE/UMAP lay the curves out grouped by hardness. Takeaway: standardise,
 then a few components carry the structure.
 
@@ -61,15 +62,18 @@ slope ≈ 7 and R² ≈ 0.71 (a real but imperfect relationship). Logistic regre
 the two phases with a straight decision boundary at ≈ 1.00 training accuracy and produces a
 smooth probability map. Takeaway: the two simplest models — a line, and a linear classifier.
 
-**02 · clustering_phases (~7 s).** The silhouette peaks at **k = 2** (0.61), so the map is
-two-phase; k-means paints two coherent regions, GMM adds a confidence map that darkens at
-boundaries, HDBSCAN finds clusters plus a little noise, and ARI(k-means, GMM) = 0.86 confirms
-the split is robust. Takeaway: "how many phases?" becomes a defensible number.
+**02 · clustering_phases (~9 s).** On all **40,000** indents the silhouette peaks at **k = 2**
+(0.61) — the clustering itself uses every point; only the O(n²) silhouette score samples 10,000.
+k-means paints two coherent regions, GMM adds a confidence map that darkens at boundaries,
+HDBSCAN (also on all 40,000) finds **2 clusters** plus ~3% noise, and ARI(k-means, GMM) = 0.86
+confirms the split is robust. Takeaway: "how many phases?" becomes a defensible number.
 
-**02a · knn_classifier (~5 s).** Decision boundaries for k = 1, 15, 101 go from jagged
-(overfit) to smooth (underfit); test accuracy peaks around **k = 15** while k = 1 scores a
-perfect 1.0 on *training* only. Takeaway: k controls the bias/variance trade-off; pick it by
-test accuracy.
+**02a · knn_classifier (~4 s).** Now on all **40,000** indents (28,000 train / 12,000 test).
+Decision boundaries for k = 1, 15, 101 still go from jagged (overfit) to smooth (underfit). With
+this much cleanly-separable data every k classifies at ≈ 0.999, so the test-accuracy curve is
+nearly flat; the visible overfitting signal is that **k = 1 scores a perfect 1.0 on *training***
+but slightly less on the test set. Takeaway: more data shrinks the overfit gap — read it from the
+train-vs-test split, not the test ranking alone.
 
 **03 · supervised_trees_rf_shap (~13 s).** A depth-3 tree reaches 0.98 and prints readable
 rules (it splits on **Depth** and **E**, not only H); random forest and boosting reach ~1.00.
@@ -108,6 +112,13 @@ the **milled pattern** and clustering segments intact-CrN (~17 GPa) from milled/
 synthetic multilayer (known thicknesses) is fitted to recover all three layer hardnesses (CrN 22.1,
 Cr 5.0, Si 12.0 vs true 22/5/12), and a random forest learns the deconvolution (**R² = 0.98**).
 Takeaway: match the depth range to the layer you want — cluster shallow maps, deconvolve deep curves.
+
+**08 · single_vs_depth_resolved (~9 s).** The depth-resolved Al–Cu map (19,718 indents) is
+clustered two ways into its soft matrix and hard Al₂Cu intermetallic: from **one depth** (50 nm →
+2.8 vs 8.2 GPa) and from the **whole hardness curve** (PCA→k-means; 57% hard, 5 components keep
+0.98 of the variance). The two phase maps agree at **ARI 0.86**; the single-depth answer matches the
+whole-curve one **0.83 at a shallow 15 nm** but **0.93 at 80 nm**. Takeaway: a depth-resolved map is
+a stack of single-depth maps — using the whole curve needs no chosen depth and is more robust.
 
 **10 · cnn_mnist (~8 s).** A small CNN reaches **0.92** on MNIST in 2 epochs, with a near-diagonal
 confusion matrix. Takeaway: the same convolutional idea as notebook 04 — and never shuffle the

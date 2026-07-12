@@ -15,7 +15,7 @@ Every term you'll meet in the notebooks, in **one plain sentence**, each with a
 ## Preparing data
 
 - **Standardisation (z-score)** — rescale a feature to mean 0, spread 1 so units don't bias the result. *Example: putting `H` (GPa) and `H/E` (unitless) on equal footing.*
-- **PCA (Principal Component Analysis)** — rotate the data onto new axes ordered by how much they vary, to compress many correlated numbers into a few. *Example: turning a 64-point hardness–depth curve into 3 numbers.*
+- **PCA (Principal Component Analysis)** — rotate the data onto new axes ordered by how much they vary, to compress many correlated numbers into a few. *Example: turning a 56-point hardness–depth curve into 3 numbers.*
 - **Variance** — how spread out values are; PCA seeks the directions of greatest variance. *Example: the direction along which indents differ most.*
 - **Principal component / loading** — a new PCA axis, and the recipe (per-feature weights) that defines it. *Example: PC1 ≈ overall hardness level.*
 - **Scree plot** — the % of variance each component explains, in order; its "elbow" tells you how many to keep. *Example: first 3 curve-PCs explain most of the variance.*
@@ -64,7 +64,7 @@ Every term you'll meet in the notebooks, in **one plain sentence**, each with a
 - **1-D convolution** — a filter sliding along a sequence (the sequence version of image convolution). *Example: reading a load–depth curve directly.*
 - **Epoch** — one full pass of the training data through the network. *Example: 25 quick passes on the CPU.*
 - **GAF (Gramian Angular Field)** — turns a 1-D curve into a square image; it's **scale-invariant** (keeps shape, drops magnitude). *Example: two phases that differ in level look identical after GAF.*
-- **Autoencoder** — a network that squeezes data through a narrow **bottleneck** and rebuilds it, learning a compact code. *Example: 64-point curve → 2 numbers → 64-point curve.*
+- **Autoencoder** — a network that squeezes data through a narrow **bottleneck** and rebuilds it, learning a compact code. *Example: 56-point curve → 2 numbers → 56-point curve.*
 - **Latent space** — the bottleneck's few numbers: learned coordinates where similar samples sit together. *Example: curves ordered by hardness with no labels given.*
 - **Reconstruction error → anomaly** — how badly the autoencoder rebuilds a sample; high = unusual. *Example: flagging pop-ins and cracked indents.*
 
