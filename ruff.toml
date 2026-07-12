@@ -1,0 +1,18 @@
+# Ruff configuration for the helper package in src/.
+# The notebooks use a deliberately compact teaching style (short one-liners),
+# so we enable the checks that catch *real* problems — undefined names, unused
+# imports, syntax errors — and switch off purely stylistic rules.
+
+target-version = "py310"
+line-length = 100
+
+[lint]
+select = ["E", "F", "W"]
+ignore = [
+    "E401",  # multiple imports on one line — intentional compact style
+    "E701",  # multiple statements on one line (colon) — intentional compact style
+    "E702",  # multiple statements on one line (semicolon)
+    "E703",  # statement ends with a semicolon
+    "E501",  # line too long
+    "E741",  # ambiguous variable name (l, I, O) — common in maths code
+]

@@ -2,6 +2,11 @@
 from __future__ import annotations
 import numpy as np
 
+# Numerical integration: NumPy 2.0 renamed ``np.trapz`` to ``np.trapezoid``
+# (and removed the old name in NumPy 2.x). Pick whichever this NumPy provides so
+# the helpers work on both old and new installs.
+_trapezoid = getattr(np, "trapezoid", getattr(np, "trapz", None))
+
 def standardize(X, return_scaler: bool = False):
     """z-score each column (mean 0, unit variance). Wraps sklearn."""
     from sklearn.preprocessing import StandardScaler
@@ -32,8 +37,8 @@ def curve_scalar_features(depth_nm, load_mN) -> dict:
     else:
         S = np.polyfit(h_load[-max(3, len(h_load)//10):],
                        P_load[-max(3, len(P_load)//10):], 1)[0]
-    Wt = np.trapz(P_load, h_load)
-    Wtot = np.trapz(np.abs(P), h)
+    Wt = _trapezoid(P_load, h_load)
+    Wtot = _trapezoid(np.abs(P), h)
     We_Wt = float(np.clip((Wtot - Wt) / Wtot, 0, 1)) if Wtot > 0 else np.nan
     C = float(np.polyfit(h_load, P_load, 2)[0])
     return dict(P_max=float(P.max()), h_max=float(h.max()),
