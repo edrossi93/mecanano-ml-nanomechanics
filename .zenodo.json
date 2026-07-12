@@ -1,0 +1,37 @@
+{
+  "upload_type": "software",
+  "title": "MecaNano — Machine Learning for Nanomechanics (Tutorial 1)",
+  "version": "1.0.0",
+  "description": "A hands-on, beginner-first tutorial on machine learning for nanoindentation and materials data: runnable notebooks covering features/PCA, clustering, supervised models and honest evaluation, CNNs and autoencoders, correlative registration and multimodal label transfer, coating/substrate deconvolution, uncertainty quantification, microstructure segmentation, and Bayesian optimization, on public and synthetic datasets. Use of this repository or its data requires citation; see the repository LICENSE for terms.",
+  "creators": [
+    {
+      "name": "Rossi, Edoardo",
+      "affiliation": "Università degli Studi Roma Tre"
+    }
+  ],
+  "access_right": "open",
+  "license": "other-at",
+  "keywords": [
+    "nanoindentation",
+    "high-speed nanoindentation mapping",
+    "machine learning",
+    "materials science",
+    "materials informatics",
+    "convolutional neural networks",
+    "uncertainty quantification",
+    "image segmentation",
+    "Bayesian optimization"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/edrossi93/mecanano-ml-nanomechanics",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "10.1557/s43578-021-00214-5",
+      "relation": "references",
+      "scheme": "doi"
+    }
+  ]
+}
