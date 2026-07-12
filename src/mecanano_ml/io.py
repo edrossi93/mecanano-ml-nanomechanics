@@ -67,6 +67,26 @@ def load_afm_grid() -> dict:
     z = np.load(os.path.join(DATA, "afm_grid.npz"))
     return {k: z[k] for k in z.files}
 
+def load_4d(name: str = "crn_cr_bilayer") -> dict:
+    """Depth-resolved (4D) coating/bilayer map, e.g. CrN on Cr.
+
+    Reads ``data/nanoindent_4d/<name>.csv`` (a plain, openable long-format table
+    with columns ``indent, x_um, y_um, depth_nm, H_GPa, E_GPa``) and returns a
+    dict of numpy arrays:
+      ``X, Y``      per-indent position (um)
+      ``depth_nm``  the common depth axis (nm)
+      ``H, E``      arrays of shape (n_indents, n_depth): hardness / modulus vs
+                    depth (GPa). Missing depth points are left as NaN.
+    """
+    path = os.path.join(DATA, "nanoindent_4d", name + ".csv")
+    df = pd.read_csv(path)
+    depth = np.sort(df["depth_nm"].unique())
+    H = df.pivot_table("H_GPa", "indent", "depth_nm").reindex(columns=depth)
+    E = df.pivot_table("E_GPa", "indent", "depth_nm").reindex(columns=depth)
+    xy = df.groupby("indent")[["x_um", "y_um"]].first()
+    return dict(depth_nm=depth, H=H.values, E=E.values,
+                X=xy["x_um"].values, Y=xy["y_um"].values)
+
 def load_curves(n: int | None = None, kind: str = "training"):
     """Load raw load-depth curves as a list of (depth_nm, load_mN) arrays.
 
