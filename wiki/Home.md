@@ -46,7 +46,11 @@ Open the notebooks roughly in this order — each builds on the last.
 | 06 | `correlative_registration` | aligning two maps, agreement & confusion |
 | 07 | `substrate_layer_deconvolution` | **coating vs substrate** deconvolution (physics + ML) on a CrN–Cr bilayer |
 | 08 | `single_vs_depth_resolved` | **single‑depth vs depth‑resolved** phase mapping — one depth vs the whole curve (Al–Cu) |
+| 09 | `multimodal_pipeline` | **register, transfer labels, train, fill gaps**: the full correlative pipeline (chains 06 + 03) |
 | 10–13 | refreshed classics | MNIST CNN · pop‑in detection · curve fitting · YOLO (optional) |
+| 14 | `uncertainty_quantification` | **uncertainty quantification**: ensemble, RF variance, MC‑dropout + **calibration** |
+| 15 | `microstructure_segmentation` | **U‑Net segmentation** of a microstructure: a CNN for microscopy |
+| 16 | `bayesian_optimization` | **Bayesian optimization**: pick the next experiment to maximise a property |
 
 ## Wiki pages
 

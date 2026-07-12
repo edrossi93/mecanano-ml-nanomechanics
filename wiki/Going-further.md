@@ -16,17 +16,25 @@ You've worked through the core notebooks — here's where to deepen each thread.
   **pop-in** detector (`11`) to triage a large map before analysis.
 - **Correlation.** Extend **`06`** from a rigid transform to an **affine** one
   (add scale/shear) if your two modalities differ in magnification.
+- **Correlate two modalities end to end.** Notebook **`09`** chains registration (`06`)
+  and supervised learning (`03`): align a second technique, transfer its labels, then
+  predict the regions it could not measure.
+- **Report honest confidence.** Notebook **`14`** puts an error bar on every prediction
+  (ensembles, tree variance, MC-dropout) and checks the bar is calibrated. Make it a habit.
+- **Beyond nanoindentation.** Notebook **`15`** segments a microstructure with a U-Net
+  (a CNN for microscopy), and **`16`** uses Bayesian optimization to pick the next
+  experiment. Both run on synthetic data you can swap for your own.
 
 ## Natural next methods (not yet in the repo)
 
-- **Uncertainty in regression** — Gaussian-process regression gives predictions *with
-  error bars*, valuable when you'll make decisions from the numbers.
-- **UMAP parameter deep-dive** — how `n_neighbors` and `min_dist` trade off local vs
+- **Active learning on real experiments.** Take the loop in **`16`** to a 2-D or 3-D
+  setting and drive an actual measurement campaign, not a synthetic one.
+- **UMAP parameter deep-dive.** How `n_neighbors` and `min_dist` trade off local vs
   global structure in an embedding.
-- **1-D CNN vs classic features, at scale** — when does deep learning actually beat a
-  well-chosen feature set? (Often it doesn't, on small data — measure it.)
-- **Semantic segmentation** of micrographs (U-Net) as the pixel-level cousin of the
-  object detection in notebook 13.
+- **Graph neural networks** for crystal structures or defect networks, where the input
+  is a graph rather than a grid or a curve.
+- **Physics-informed models** that fold a known equation (Kick's law, a diffusion PDE)
+  into the loss so predictions stay physical.
 
 ## Background reading
 
